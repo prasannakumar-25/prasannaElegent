@@ -190,26 +190,26 @@
 
 /* Make the table cell properly align buttons */
 .vm-action-cell {
-  /* display: flex !important; */
-  justify-content: flex-end !important;
+  display: flex !important;
+  /* justify-content: flex-end !important;
   align-items: center;
-  gap: 10px !important;
+  gap: 10px !important; */
 }
 
 /* Base button style */
 .vm-btn {
-  display: inline-flex;
-  margin-top: -2px !important;
+  /* display: inline-flex; */
+  /* margin-top: -2px !important; */
   align-items: center;
   gap: 6px !important;
-  padding: 6px 14px !important;
-  border-radius: 6px !important;
-  border: none !important;
+  /* padding: 6px 14px !important; */
+  /* border-radius: 6px !important; */
+  /* border: none !important;
   font-size: 14px;
   cursor: pointer;
   font-weight: 500 !important;
   transition: 0.25s ease-in-out;
-  text-transform: none;
+  text-transform: none; */
 }
 
 /* Edit Button */

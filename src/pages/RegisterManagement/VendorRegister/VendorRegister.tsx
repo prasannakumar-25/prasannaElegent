@@ -347,7 +347,22 @@ const VendorRegister: React.FC<{ onLogout?: () => void }> = () => {
   const drawerWidth = isMdUp ? Math.min(700, Math.round(window.innerWidth * 0.55)) : window.innerWidth;
 
   return (
-    <div className="vm-root">
+    <Stack
+    className="vm-root"
+    bgcolor="common.white"
+    borderRadius={5}
+    minHeight={460}
+    height={1}
+    mx="auto"
+    boxShadow={theme.shadows[4]}
+    >
+      <Stack
+      direction={{ sm: 'row' }}
+      justifyContent={{ sm: 'space-between' }}
+      alignItems={{ sm: 'center' }}
+      gap={2}
+      padding={3.75}
+      >
      {/* <Sidebar />s */}
 
       <main className="vm-content">
@@ -357,7 +372,7 @@ const VendorRegister: React.FC<{ onLogout?: () => void }> = () => {
           <div className="vm-actions">
             <Button
               variant="contained"
-              startIcon={<IconifyIcon icon="material-symbols:add-rounded" />}
+              // startIcon={<IconifyIcon icon="material-symbols:add-rounded" />}
               onClick={handleOpenAdd}
               className="add-vendor-btn"
             >
@@ -435,7 +450,6 @@ const VendorRegister: React.FC<{ onLogout?: () => void }> = () => {
                       onClick={() => handleOpenEdit(v)}
                       className="vm-btn vm-action-btn-edit"
                     >
-                      Edit
                       <IconifyIcon icon="fluent:notepad-edit-16-regular" />
                     </Button>
 
@@ -443,7 +457,6 @@ const VendorRegister: React.FC<{ onLogout?: () => void }> = () => {
                       onClick={() => handleDelete(v.id)}
                       className="vm-btn vm-action-btn-delete"
                     >
-                      Delete
                       <IconifyIcon icon="wpf:delete" />
                     </Button>
                   </TableCell>
@@ -593,18 +606,23 @@ const VendorRegister: React.FC<{ onLogout?: () => void }> = () => {
             
 
             <Stack direction="row" spacing={2} justifyContent="flex-end" mt={1}>
-              <Button variant="text" className="cancel-button" onClick={handleCloseDrawer} startIcon={<IconifyIcon icon="material-symbols:close-rounded" /> }>
+              <Button variant="text" className="cancel-button" onClick={handleCloseDrawer} 
+              // startIcon={<IconifyIcon icon="material-symbols:close-rounded" /> }
+              >
                 Cancel
               </Button>
 
-              <Button variant="contained" className="edit-button" onClick={handleSave} startIcon={<IconifyIcon icon="material-symbols:add-rounded" />}>
+              <Button variant="contained" className="edit-button" onClick={handleSave} 
+              // startIcon={<IconifyIcon icon="material-symbols:add-rounded" />}
+              >
                 {editingVendor ? "Update Vendor" : "Save Vendor"}
               </Button>
             </Stack>
           </Stack>
         </Box>
       </Drawer>
-    </div>
+      </Stack>
+    </Stack>
     
   );
 };
