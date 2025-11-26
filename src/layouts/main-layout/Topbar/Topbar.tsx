@@ -14,7 +14,7 @@ import IconifyIcon from 'components/base/IconifyIcon';
 import { drawerWidth } from 'layouts/main-layout';
 
 import { useLocation } from 'react-router-dom';
-import capitalizePathname from 'helpers/capitalize-pathname';
+// import capitalizePathname from 'helpers/capitalize-pathname';
 import AccountDropdown from './AccountDropdown';
 import LanguageDropdown from './LanguageDropdown';
 import Image from 'components/base/Image';
@@ -27,7 +27,7 @@ interface TopbarProps {
 
 const Topbar = ({ handleDrawerToggle }: TopbarProps): ReactElement => {
   const { pathname } = useLocation();
-  const title = capitalizePathname(pathname);
+  // const title = capitalizePathname(pathname);
 
   return (
     <AppBar
@@ -85,7 +85,7 @@ const Topbar = ({ handleDrawerToggle }: TopbarProps): ReactElement => {
           flex={'1 1 auto'}
         >
           <Typography variant="h5" component="h5" className='text-dark' sx={{ color: "#000000" }}>
-            {pathname === '/' ? 'Dashboard' : title}
+            {/* {pathname === '/' ? 'Dashboard' : title} */}
           </Typography>
           <TextField
             variant="outlined"

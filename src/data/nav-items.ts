@@ -133,6 +133,20 @@ const navItems: NavItem[] = [
     collapsible: false,
   },
   {
+    title: 'UserAuthendication',
+    path: 'uesr',
+    icon: 'fa-solid:user-tie',
+    active: true,
+    collapsible: false,
+  },
+  {
+    title: 'VehicleRegister',
+    path: 'vehicle',
+    icon: 'icon-park-solid:engineering-vehicle',
+    active: true,
+    collapsible: false,
+  },
+  {
     title: 'Applications',
     path: '/dashboard',
     icon: 'mingcute:grid-fill',
@@ -165,61 +179,61 @@ const navItems: NavItem[] = [
       },
     ],
   },
-  {
-    title: 'Ecommerce',
-    path: 'ecommerce1',
-    icon: 'tabler:shopping-bag',
-    active: true,
-    collapsible: true,
-    sublist: [
-      {
-        title: 'Products',
-        path: '#!',
-        active: false,
-        collapsible: false,
-        sublist: [
-          {
-            title: 'All Products',
-            path: '#!',
-            active: false,
-            collapsible: false,
-          },
-          {
-            title: 'Edit Product',
-            path: '#!',
-            active: false,
-            collapsible: false,
-          },
-          {
-            title: 'New Product',
-            path: '#!',
-            active: false,
-            collapsible: false,
-          },
-        ],
-      },
-      {
-        title: 'Orders',
-        path: 'orders',
-        active: false,
-        collapsible: false,
-        sublist: [
-          {
-            title: 'Order List',
-            path: '#!',
-            active: false,
-            collapsible: false,
-          },
-          {
-            title: 'Order Detail',
-            path: '#!',
-            active: false,
-            collapsible: false,
-          },
-        ],
-      },
-    ],
-  },
+  // {
+  //   title: 'Ecommerce',
+  //   path: 'ecommerce1',
+  //   icon: 'tabler:shopping-bag',
+  //   active: true,
+  //   collapsible: true,
+  //   sublist: [
+  //     {
+  //       title: 'Products',
+  //       path: '#!',
+  //       active: false,
+  //       collapsible: false,
+  //       sublist: [
+  //         {
+  //           title: 'All Products',
+  //           path: '#!',
+  //           active: false,
+  //           collapsible: false,
+  //         },
+  //         {
+  //           title: 'Edit Product',
+  //           path: '#!',
+  //           active: false,
+  //           collapsible: false,
+  //         },
+  //         {
+  //           title: 'New Product',
+  //           path: '#!',
+  //           active: false,
+  //           collapsible: false,
+  //         },
+  //       ],
+  //     },
+  //     {
+  //       title: 'Orders',
+  //       path: 'orders',
+  //       active: false,
+  //       collapsible: false,
+  //       sublist: [
+  //         {
+  //           title: 'Order List',
+  //           path: '#!',
+  //           active: false,
+  //           collapsible: false,
+  //         },
+  //         {
+  //           title: 'Order Detail',
+  //           path: '#!',
+  //           active: false,
+  //           collapsible: false,
+  //         },
+  //       ],
+  //     },
+  //   ],
+  // },
   {
     title: 'Authentication',
     path: 'authentication',
@@ -253,33 +267,33 @@ const navItems: NavItem[] = [
       },
     ],
   },
-  {
-    title: 'Notification',
-    path: '#!',
-    icon: 'zondicons:notifications',
-    active: true,
-    collapsible: true,
-    sublist: [
-      {
-        title: 'VnedorNf',
-        path: '/',
-        active: true,
-        collapsible: false,
-      },
-      {
-        title: 'MachineNf',
-        path: '/',
-        active: true,
-        collapsible: false,
-      },
-      {
-        title: 'CustomerNf',
-        path: '/',
-        active: true,
-        collapsible: false,
-      },
-    ]
-  },
+  // {
+  //   title: 'Notification',
+  //   path: '#!',
+  //   icon: 'zondicons:notifications',
+  //   active: true,
+  //   collapsible: true,
+  //   sublist: [
+  //     {
+  //       title: 'VnedorNf',
+  //       path: '/',
+  //       active: true,
+  //       collapsible: false,
+  //     },
+  //     {
+  //       title: 'MachineNf',
+  //       path: '/',
+  //       active: true,
+  //       collapsible: false,
+  //     },
+  //     {
+  //       title: 'CustomerNf',
+  //       path: '/',
+  //       active: true,
+  //       collapsible: false,
+  //     },
+  //   ]
+  // },
   
   // {
   //   title: 'Calendar',

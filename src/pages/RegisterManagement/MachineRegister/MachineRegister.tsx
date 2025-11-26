@@ -242,7 +242,15 @@ const MachineRegister: React.FC<{ onLogout?: () => void }> = () => {
   const drawerWidth = isMdUp ? Math.min(700, Math.round(window.innerWidth * 0.55)) : window.innerWidth;
 
   return (
-    <div className="vm-root">
+    <Stack
+    className="vm-root"
+    bgcolor="common.white"
+    // borderRadius={5}
+    // minHeight={460}
+    // height={1}
+    // mx="auto"
+    // boxShadow={theme.shadows[4]}
+    >
       <main className="vm-content">
         <Box className="vm-header">
           <Typography variant="h4">Machine Register</Typography>
@@ -250,7 +258,7 @@ const MachineRegister: React.FC<{ onLogout?: () => void }> = () => {
           <div className="vm-actions">
             <Button
               variant="contained"
-              startIcon={<IconifyIcon icon="material-symbols:add-rounded" />}
+              // startIcon={<IconifyIcon icon="material-symbols:add-rounded" />}
               onClick={handleOpenAdd}
               className="add-vendor-btn"
             >
@@ -297,7 +305,6 @@ const MachineRegister: React.FC<{ onLogout?: () => void }> = () => {
                       onClick={() => handleOpenEdit(m)}
                       className="vm-btn vm-action-btn-edit"
                     >
-                      Edit
                       <IconifyIcon icon="fluent:notepad-edit-16-regular" />
                     </Button>
 
@@ -305,7 +312,6 @@ const MachineRegister: React.FC<{ onLogout?: () => void }> = () => {
                       onClick={() => handleDelete(m.id)}
                       className="vm-btn vm-action-btn-delete"
                     >
-                      Delete
                       <IconifyIcon icon="wpf:delete" />
                     </Button>
                   </TableCell>
@@ -435,18 +441,22 @@ const MachineRegister: React.FC<{ onLogout?: () => void }> = () => {
             />
 
             <Stack direction="row" spacing={2} justifyContent="flex-end" mt={1}>
-              <Button variant="text" className="cancel-button" onClick={handleCloseDrawer} startIcon={<IconifyIcon icon="material-symbols:close-rounded" /> }>
+              <Button variant="text" className="cancel-button" onClick={handleCloseDrawer} 
+              // startIcon={<IconifyIcon icon="material-symbols:close-rounded" /> }
+              >
                 Cancel
               </Button>
 
-              <Button variant="contained" className="edit-button" onClick={handleSave} startIcon={<IconifyIcon icon="material-symbols:add-rounded" />}>
+              <Button variant="contained" className="edit-button" onClick={handleSave} 
+              // startIcon={<IconifyIcon icon="material-symbols:add-rounded" />}
+              >
                 {editingMachine ? "Update Machine" : "Save Machine"}
               </Button>
             </Stack>
           </Stack>
         </Box>
       </Drawer>
-    </div>
+    </Stack>
   );
 };
 
