@@ -32,6 +32,8 @@ import {
 import IconifyIcon from "components/base/IconifyIcon";
 
 import { GridApi, useGridApiRef } from '@mui/x-data-grid';
+import { useSnackbar } from 'notistack'
+import machineApi from "services/machineApi";
 
 
 
@@ -146,7 +148,8 @@ const MachineRegister: React.FC<{ onLogout?: () => void }> = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [editingMachine, setEditingMachine] = useState<Machine | null>(null);
   const [formError, setFormError] = useState<string | null>(null);
-  const [showPassword, setShowPassword] = useState(false)
+  const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [search, setSearch] = useState('');
   const apiRef = useGridApiRef<GridApi>();
@@ -161,6 +164,7 @@ const MachineRegister: React.FC<{ onLogout?: () => void }> = () => {
   // -- Snackbar State --
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
+  const { enqueueSnackbar } = useSnackbar()
 
   // -- Show password --
   const handleClickShowPassword = () => setShowPassword(!showPassword);
@@ -183,9 +187,33 @@ const MachineRegister: React.FC<{ onLogout?: () => void }> = () => {
     machineLocation: "",
   });
 
+  const fetchMachine = async ()=>{
+    try {
+      const response = await machineApi.getMachineDetails()
+      console.log("--response---",response)
+
+      if (response.success) {
+        setVendors(response.data)
+        console.log("response.data :", response.data)
+      } else {
+        enqueueSnackbar(response.message || "Failed to register machine", {
+          variant: "error",
+        })
+      }
+    } catch (error){
+      const errorMessage = error.response?.data.message || "Something error occured please try again later"
+      console.log(errorMessage)
+      enqueueSnackbar(errorMessage, {variant: "error"})
+    } finally {
+      setLoading(false)
+    }
+
+  }
+
   useEffect(() => {
     // Load mock machines and vendors on first render
     // setMachines(initialMachines);
+    fetchMachine()
     setVendors([]);
   }, []);
 
@@ -247,13 +275,15 @@ const MachineRegister: React.FC<{ onLogout?: () => void }> = () => {
 
     if (editingMachine) {
       // update
-      setMachines((prev) => prev.map((p) => (p.id === editingMachine.id ? { ...form, id: editingMachine.id } : p)));
+      // setMachines((prev) => prev.map((p) => (p.id === editingMachine.id ? { ...form, id: editingMachine.id } : p)));
       setSnackbarMessage("Machine updated successfully");
     } else {
       // add new
       const newMachine: Machine = { ...form, id: Date.now() };
-      setMachines((prev) => [newMachine, ...prev]);
+      // setMachines((prev) => [newMachine, ...prev]);
       setSnackbarMessage("Machine added successfully");
+
+      console.log("newmachine", newMachine)
     }
     setSnackbarOpen(true);
     handleCloseDrawer();
@@ -372,7 +402,10 @@ const MachineRegister: React.FC<{ onLogout?: () => void }> = () => {
                   ),
                 }}
                 fullWidth
-                sx={{ maxWidth: 300}}
+                sx={{ maxWidth: 300,
+                  p: 2,
+                  mr: 'auto',
+                }}
                 
               />
               <div className="selection-header-lable">
@@ -386,16 +419,20 @@ const MachineRegister: React.FC<{ onLogout?: () => void }> = () => {
               placeholder="Vendor..."
               onChange={(e) => setField("vendorId", Number(e.target.value))}
               // fullWidth
-              sx={{ maxWidth: 300}}
+              sx={{ maxWidth: 300,
+                p: 1,
+                mr: 'auto',
+                display: { xs: 'flex', lg: 'flex' },
+              }}
               >
-                <MenuItem value= "">
+                {/* <MenuItem value= "">
                   <em>None</em>
                 </MenuItem>
               {vendors.map((v) => (
                 <MenuItem key={v.id} value={v.id}>
                   {v.vendorName}
                 </MenuItem>
-              ))}
+              ))} */}
               </TextField>
               </div>
               <div className="vm-actions">
@@ -417,9 +454,11 @@ const MachineRegister: React.FC<{ onLogout?: () => void }> = () => {
                   <TableRow className="vm-table-row">
                       <TableCell className="header-name">Machine Name</TableCell>
                       <TableCell className="header-name">Vendor</TableCell>
-                      <TableCell className="header-name">Type</TableCell>
+                      <TableCell className="header-name">Mac address</TableCell>
                       <TableCell className="header-name">Capacity (tons)</TableCell>
+                      <TableCell className="header-name">Machine Type</TableCell>
                       <TableCell className="header-name">Location</TableCell>
+                      <TableCell className="header-name">Model</TableCell>
                       <TableCell className="header-name">Last Service</TableCell>
                       <TableCell className="header-name" align="right">Actions</TableCell>
                   </TableRow>
@@ -435,10 +474,12 @@ const MachineRegister: React.FC<{ onLogout?: () => void }> = () => {
                       </TableCell>
 
                       <TableCell>{vendors.find(v => v.id === m.vendorId)?.vendorName || "—"}</TableCell>
-                      <TableCell>{m.machineType}</TableCell>
+                      <TableCell>{m. machineMac || "—"}</TableCell>
                       <TableCell>{m.capacityTon ? `${m.capacityTon} tons` : "—"}</TableCell>
+                      <TableCell>{m.machineType}</TableCell>
                       <TableCell>{m.machineLocation || "—"}</TableCell>
-
+                      <TableCell>{m. machineModel || "—"}</TableCell>
+                      
                       <TableCell>
                           {m.lastServiceDate ? new Date(m.lastServiceDate).toLocaleDateString() : "—"}
                       </TableCell>
@@ -462,7 +503,7 @@ const MachineRegister: React.FC<{ onLogout?: () => void }> = () => {
                   ))}
                   {filteredMachinefound.length === 0 && (
                       <TableRow>
-                          <TableCell colSpan={7} align="center">
+                          <TableCell colSpan={9} align="center">
                               No Machines found.
                           </TableCell>
                       </TableRow>
@@ -501,16 +542,49 @@ const MachineRegister: React.FC<{ onLogout?: () => void }> = () => {
 
               <Box className="drawer-content">
               {formError && <Box className="form-error">{formError}</Box>}
-
+              
               <Stack spacing={2}>
+                <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
                   <TextField
                   label="Machine Name"
                   className="input-bg-color"
                   placeholder="Enter machine name"
                   fullWidth
                   value={form.machineName}
+                  disabled={loading}
                   onChange={(e) => setField("machineName", e.target.value)}
                   />
+                  <TextField
+                  label="Password"
+                  className="input-bg-color"
+                  type={showPassword ? 'text' : "password"}
+                  placeholder="*********"
+                  fullWidth
+                  value={form.password}
+                  onChange={(e) => setField("password", e.target.value)}
+                    InputProps = {{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                            aria-label="toggle password visibility"
+                            // className="input-bg-color"
+                            onClick={handleClickShowPassword}
+                            edge="end"
+                            sx={{
+                              color: 'text.secondary',
+                            }}
+                          >
+                            {showPassword ? (
+                              <IconifyIcon icon="ic:baseline-key-off" />
+                            ) : (
+                              <IconifyIcon icon="ic:baseline-key" />
+                            )}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                  </Stack>
 
                   <TextField
                   label="Asscoiated Vendor"
@@ -530,37 +604,9 @@ const MachineRegister: React.FC<{ onLogout?: () => void }> = () => {
                   ))}
                   </TextField>
 
-                  <TextField
-                  label="Password"
-                  className="input-bg-color"
-                  type={showPassword ? 'text' : "password"}
-                  placeholder="*********"
-                  fullWidth
-                  value={form.password}
-                  onChange={(e) => setField("password", e.target.value)}
-                    InputProps = {{
-                      endAdornment: (
-                        <InputAdornment position="end">
-                          <IconButton
-                            aria-label="toggle password visibility"
-                            onClick={handleClickShowPassword}
-                            edge="end"
-                            sx={{
-                              color: 'text.secondary',
-                            }}
-                          >
-                            {showPassword ? (
-                              <IconifyIcon icon="ic:baseline-key-off" />
-                            ) : (
-                              <IconifyIcon icon="ic:baseline-key" />
-                            )}
-                          </IconButton>
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
+                  
 
-                  <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
+                  {/* <Stack direction={{ xs: "column", sm: "row" }} spacing={2}> */}
                   <TextField
                       label="MAC Address"
                       className="input-bg-color"
@@ -577,7 +623,7 @@ const MachineRegister: React.FC<{ onLogout?: () => void }> = () => {
                       value={form.machineModel || ""}
                       onChange={(e) => setField("machineModel", e.target.value)}
                   />
-                  </Stack>
+                  {/* </Stack> */}
 
                   <TextField
                   label="Capacity (tons)"
@@ -590,16 +636,7 @@ const MachineRegister: React.FC<{ onLogout?: () => void }> = () => {
                   onChange={(e) => setField("capacityTon", e.target.value ? parseFloat(e.target.value) : undefined)}
                   />
 
-                  <TextField
-                  label="Last Service Date"
-                  className="input-bg-color"
-                  type="date"
-                  fullWidth
-                  value={form.lastServiceDate || ""}
-                  onChange={(e) => setField("lastServiceDate", e.target.value)}
-                  InputLabelProps={{ shrink: true }}
-                  />
-
+                  
                   <TextField
                   label="Machine Type"
                   className="input-bg-color"
@@ -621,6 +658,16 @@ const MachineRegister: React.FC<{ onLogout?: () => void }> = () => {
                   value={form.machineLocation || ""}
                   onChange={(e) => setField("machineLocation", e.target.value)}
                   />
+                  <TextField
+                  label="Last Service Date"
+                  className="input-bg-color"
+                  type="date"
+                  fullWidth
+                  value={form.lastServiceDate || ""}
+                  onChange={(e) => setField("lastServiceDate", e.target.value)}
+                  InputLabelProps={{ shrink: true }}
+                  />
+
 
                   <Stack direction="row" spacing={2} justifyContent="flex-end" mt={1}>
                   <Button variant="text" className="cancel-button" onClick={handleCloseDrawer} 

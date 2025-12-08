@@ -2,7 +2,7 @@ import Authaxios from "../axios/axios";
 
 
 const machineApi = {
-    addMachinDetails : async (payload) => {
+    addMachinDetails : async (payload:object) => {
         try{
             const response = await Authaxios.post("/add/machine", payload)
             return response.data
@@ -22,7 +22,7 @@ const machineApi = {
             throw error
         }
     },
-    getFilterMachineDetails : async (Machine_Id) => {
+    getFilterMachineDetails : async (Machine_Id:number) => {
         try{
             const response = await Authaxios.get(`/get/machine?Machine_Id=${Machine_Id}`)
             return response.data
@@ -32,7 +32,7 @@ const machineApi = {
             throw error
         }
     },
-    updataMachineDetailes : async (machine_id, payload) => {
+    updataMachineDetailes : async (machine_id:number, payload:object) => {
         try{
             const response = await Authaxios.put(`/update/machine${machine_id}`,payload)
             return response.data
@@ -42,9 +42,9 @@ const machineApi = {
             throw error
         }
     },
-    deleteMachineDetails : async (machine_id, payload) => {
+    deleteMachineDetails : async (machine_id:Number) => {
         try{
-            const response = await Authaxios.delete(`/delete/machine/${machine_id}`, payload)
+            const response = await Authaxios.delete(`/delete/machine/${machine_id}`)
             return response.data
         }
         catch (error){

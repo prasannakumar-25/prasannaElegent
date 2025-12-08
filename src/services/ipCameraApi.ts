@@ -1,9 +1,11 @@
+
 import Authaxios from "../axios/axios";
 
-const partialDetailsApi = {
-    addPartialDetails : async (payload) => {
+const ipCameraApi = {
+
+    addIPcameraDetails : async (payload:object) => {
         try{
-            const response = await Authaxios.post("/add/partialdetails", payload)
+            const response = await Authaxios.post("add/ipcamera", payload)
             return response.data
         }
         catch (error){
@@ -11,9 +13,9 @@ const partialDetailsApi = {
             throw error
         }
     },
-    getPartialDetails : async () => {
+    getIPcameraDetails : async () => {
         try{
-            const response = await Authaxios.get("/get/partialDetails")
+            const response = await Authaxios.get("get/ipcamera")
             return response.data
         }
         catch (error){
@@ -21,9 +23,9 @@ const partialDetailsApi = {
             throw error
         }
     },
-    getFilterPartialDetails : async (Partial_Id) => {
+    getFilterIPcameraDetails : async (Camera_Id:number, payload:object) => {
         try{
-            const response = await Authaxios.get(`/get/partialDetails?Partial_Id=${Partial_Id}`)
+            const response = await Authaxios.get(`get/ipcamera?Camera_Id=${Camera_Id}`, payload)
             return response.data
         }
         catch (error){
@@ -31,9 +33,9 @@ const partialDetailsApi = {
             throw error
         }
     },
-    updatePartialDetails : async (partial_id, payload) => {
+    updateIPcameraDetails : async (camera_id:number, payload:object) => {
         try{
-            const response = await Authaxios.put(`/update/partialDetails/${partial_id}`, payload)
+            const response = await Authaxios.get(`update/ipcamera/${camera_id}`, payload)
             return response.data
         }
         catch (error){
@@ -41,16 +43,16 @@ const partialDetailsApi = {
             throw error
         }
     },
-    deletePartialDetails : async (partial_id, payload) => {
+    deleteIPcameraDetails : async (camera_id:number) => {
         try{
-            const response = await Authaxios.delete(`/delete/partialDetails${partial_id}`, payload)
+            const response = await Authaxios.delete(`delete/ipcamera/${camera_id}`)
             return response.data
         }
         catch (error){
             console.error("error")
             throw error
         }
-    },
+    }
 }
 
-export default partialDetailsApi
+export default ipCameraApi

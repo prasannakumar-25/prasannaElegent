@@ -2,7 +2,7 @@ import Authaxios from "../axios/axios";
 
 
 const weighBridgeApi = {
-    addWeighbridgeDetails : async (payload) => {
+    addWeighbridgeDetails : async (payload:object) => {
         try{
             const response = await Authaxios.post("add/weighbridge", payload)
             return response.data
@@ -22,7 +22,7 @@ const weighBridgeApi = {
             throw error
         }
     },
-    getFilterWeighbridgeDetails : async (Weighbridge_Id) => {
+    getFilterWeighbridgeDetails : async (Weighbridge_Id:number) => {
         try{
             const response = await Authaxios.get(`/get/weighbridge?Weighbridge_Id=${Weighbridge_Id}`)
             return response.data
@@ -32,7 +32,7 @@ const weighBridgeApi = {
             throw error
         }
     },
-    updateWeighbridgeDetails : async (weighbridge_id, payload) => {
+    updateWeighbridgeDetails : async (weighbridge_id:number, payload:object) => {
         try{
             const response = await Authaxios.put(`update/weighbridge${weighbridge_id}`,payload)
             return response.data
@@ -42,9 +42,9 @@ const weighBridgeApi = {
             throw error
         }
     },
-    deleteWeighbridgeDetails : async (weighbridge_id, payload) => {
+    deleteWeighbridgeDetails : async (weighbridge_id:number) => {
         try{
-            const response = await Authaxios.delete(`/delete/weighbridge/${weighbridge_id}`, payload)
+            const response = await Authaxios.delete(`/delete/weighbridge/${weighbridge_id}`)
             return response.data
         }
         catch (error){

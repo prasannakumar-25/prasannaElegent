@@ -1,7 +1,7 @@
 import Authaxios from "../axios/axios";
 
 const weighmentDetailsApi = {
-    addWeighmentDetails : async (payload) => {
+    addWeighmentDetails : async (payload:object) => {
         try{
             const response = await Authaxios.post("/add/weighmentDetails", payload)
             return response.data
@@ -21,7 +21,7 @@ const weighmentDetailsApi = {
             throw error
         }
     },
-    getFilterWeighmentDetails : async (Weighment_Id) => {
+    getFilterWeighmentDetails : async (Weighment_Id:number) => {
         try{
             const response = await Authaxios.get(`/get/weighment?Weighment_Id=${Weighment_Id}`)
             return response.data
@@ -31,7 +31,7 @@ const weighmentDetailsApi = {
             throw error
         }
     },
-    updateWeighmentDetails : async (weighment_id, payload) => {
+    updateWeighmentDetails : async (weighment_id:number, payload:object) => {
         try{
             const response = await Authaxios.put(`/update/weighment/${weighment_id}`, payload)
             return response.data
@@ -41,9 +41,9 @@ const weighmentDetailsApi = {
             throw error
         }
     },
-    deleteWeighmentDetails : async (weighment_id, payload) => {
+    deleteWeighmentDetails : async (weighment_id:number) => {
         try{
-            const response = await Authaxios.delete(`/delete/weightDetails${weighment_id}`, payload)
+            const response = await Authaxios.delete(`/delete/weightDetails${weighment_id}`)
             return response.data
         }
         catch (error){

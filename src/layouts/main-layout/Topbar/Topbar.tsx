@@ -64,7 +64,7 @@ const Topbar = ({ handleDrawerToggle }: TopbarProps): ReactElement => {
           >
             <IconifyIcon icon="mdi:menu" />
           </IconButton>
-          <IconButton
+          {/* <IconButton
             color="inherit"
             sx={{
               width: 40,
@@ -76,7 +76,7 @@ const Topbar = ({ handleDrawerToggle }: TopbarProps): ReactElement => {
             }}
           >
             <IconifyIcon icon="mdi:search" width={1} height={1} />
-          </IconButton>
+          </IconButton> */}
         </Stack>
         <Stack
           display={{ xs: 'none', lg: 'flex' }}

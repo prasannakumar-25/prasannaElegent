@@ -1,7 +1,7 @@
 import Authaxios from "../axios/axios";
 
 const userApi = {
-    addUserDetails : async (payload) => {
+    addUserDetails : async (payload:object) => {
         try{
             const response = await Authaxios.post("/add/user", payload) 
             return response.data
@@ -21,7 +21,7 @@ const userApi = {
             throw error
         }
     },
-    getFilterUserDetails: async (User_Id) => {
+    getFilterUserDetails: async (User_Id:number) => {
         try{
             const response = await Authaxios.get(`/get/user?User_Id=${User_Id}`)
             return response.data
@@ -31,7 +31,7 @@ const userApi = {
             throw error
         }
     },
-    updateUserDetails : async (user_id, payload) => {
+    updateUserDetails : async (user_id:number, payload:object) => {
         try{
             const response = await Authaxios.put(`/update/user/${user_id}`, payload)
             return response.data
@@ -41,12 +41,12 @@ const userApi = {
             throw error
         }
     },
-    daleteUserDateils : async (user_id, payload) => {
+    daleteUserDateils : async (user_id:number) => {
         try{
-            const response = await Authaxios.delete(`/delete/user/${user_id}`, payload)
+            const response = await Authaxios.delete(`/delete/user/${user_id}`)
             return response.data
         }
-        catch{
+        catch (error){
             console.error("error")
             throw error
         }

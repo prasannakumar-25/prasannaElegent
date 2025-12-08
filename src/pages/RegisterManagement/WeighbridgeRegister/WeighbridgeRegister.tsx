@@ -175,10 +175,10 @@ const WeighbridgeRegister: React.FC = () => {
       setFormError("Serial Number is required.");
       return false;
     }
-    if (!form.machineId) {
-      setFormError("Please associate a Machine.");
-      return false;
-    }
+    // if (!form.machineId) {
+    //   setFormError("Please associate a Machine.");
+    //   return false;
+    // }
     if (!form.party || !form.party.trim()) {
         setFormError("Party (Parity) is required.");
         return false;
@@ -292,7 +292,10 @@ const WeighbridgeRegister: React.FC = () => {
                 ),
               }}
               fullWidth
-              sx={{ maxWidth: 300 }}
+              sx={{ maxWidth: 300,
+                p: 2,
+                mr: 'auto',
+               }}
             />
 
             <div className="selection-header-lable">
@@ -304,7 +307,11 @@ const WeighbridgeRegister: React.FC = () => {
                 value={filterMachineId}
                 placeholder="Filter Machine..."
                 onChange={(e) => setFilterMachineId(e.target.value === "" ? "" : Number(e.target.value))}
-                sx={{ maxWidth: 300 }}
+                sx={{
+                  p: 1,
+                  mr: 'auto',
+                  display: { xs: 'flex', lg: 'flex' },
+                 }}
               >
                 <MenuItem value="">
                   <em>All Machines</em>

@@ -36,64 +36,66 @@ import { GridApi, useGridApiRef } from '@mui/x-data-grid';
 type User = {
   id: number;
   username: string;
+  password: "",
   email: string;
   fullName?: string;
   phone?: string;
   role?: "Admin" | "Manager" | "Operator" | "Viewer";
   department?: string;
-  designation?: string;
-  address?: string;
-  location?: string;
+  // designation?: string;
+  // address?: string;
+  // location?: string;
   status?: "Active" | "Inactive";
 };
 
-// const initialUsers: User[] = [
-//   {
-//     id: 1,
-//     username: "admin001",
-//     email: "admin@company.com",
-//     fullName: "Rajesh Kumar",
-//     phone: "9876543210",
-//     role: "Admin",
-//     department: "IT",
-//     designation: "System Administrator",
-//     address: "12 MG Road, Bangalore",
-//     location: "Bengaluru, Karnataka",
-//     status: "Active",
-//   },
-//   {
-//     id: 2,
-//     username: "manager001",
-//     email: "priya.sharma@company.com",
-//     fullName: "Priya Sharma",
-//     phone: "9876543211",
-//     role: "Manager",
-//     department: "Operations",
-//     designation: "Operations Manager",
-//     address: "45 Park Street, Kolkata",
-//     location: "Kolkata, West Bengal",
-//     status: "Active",
-//   },
-//   {
-//     id: 3,
-//     username: "operator001",
-//     email: "amit.patel@company.com",
-//     fullName: "Amit Patel",
-//     phone: "9876543212",
-//     role: "Operator",
-//     department: "Production",
-//     designation: "Machine Operator",
-//     address: "99 Station Road, Mumbai",
-//     location: "Mumbai, Maharashtra",
-//     status: "Inactive",
-//   },
-// ];
+const initialUsers: User[] = [
+  {
+    id: 1,
+    username: "admin001",
+    email: "admin@company.com",
+    fullName: "Rajesh Kumar",
+    phone: "9876543210",
+    role: "Admin",
+    department: "IT",
+    designation: "System Administrator",
+    address: "12 MG Road, Bangalore",
+    location: "Bengaluru, Karnataka",
+    status: "Active",
+  },
+  {
+    id: 2,
+    username: "manager001",
+    email: "priya.sharma@company.com",
+    fullName: "Priya Sharma",
+    phone: "9876543211",
+    role: "Manager",
+    department: "Operations",
+    designation: "Operations Manager",
+    address: "45 Park Street, Kolkata",
+    location: "Kolkata, West Bengal",
+    status: "Active",
+  },
+  {
+    id: 3,
+    username: "operator001",
+    email: "amit.patel@company.com",
+    fullName: "Amit Patel",
+    phone: "9876543212",
+    role: "Operator",
+    department: "Production",
+    designation: "Machine Operator",
+    address: "99 Station Road, Mumbai",
+    location: "Mumbai, Maharashtra",
+    status: "Inactive",
+  },
+];
 
 const UserRegister: React.FC<{ onLogout?: () => void }> = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [editingUser, setEditingUser] = useState<User | null>(null);
   const [formError, setFormError] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState(false)
 
   const theme = useTheme();
   const isMdUp = useMediaQuery(theme.breakpoints.up("md"));
@@ -109,6 +111,9 @@ const UserRegister: React.FC<{ onLogout?: () => void }> = () => {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
 
+    // -- Show password --
+  const handleClickShowPassword = () => setShowPassword(!showPassword);
+
   // Filter State (Filter by Machine)
   const [filterUserId, setFilterUserId] = useState<number | "">("");
  
@@ -117,20 +122,21 @@ const UserRegister: React.FC<{ onLogout?: () => void }> = () => {
   const [form, setForm] = useState<User>({
     id: 0,
     username: "",
+    password: "",
     email: "",
     fullName: "",
     phone: "",
     role: "Operator",
     department: "",
-    designation: "",
-    address: "",
-    location: "",
+    // designation: "",
+    // address: "",
+    // location: "",
     status: "Active",
   });
 
   useEffect(() => {
     // Load mock users on first render
-    // setUsers(initialUsers);
+    setUsers(initialUsers);
   }, []);
 
   // open drawer for add
@@ -139,14 +145,15 @@ const UserRegister: React.FC<{ onLogout?: () => void }> = () => {
     setForm({
       id: 0,
       username: "",
+      password: "",
       email: "",
       fullName: "",
       phone: "",
       role: "Operator",
       department: "",
-      designation: "",
-      address: "",
-      location: "",
+      // designation: "",
+      // address: "",
+      // location: "",
       status: "Active",
     });
     setFormError(null);
@@ -322,7 +329,10 @@ const UserRegister: React.FC<{ onLogout?: () => void }> = () => {
                   ),
                 }}
                 fullWidth
-                sx={{ maxWidth: 330}}
+                sx={{ maxWidth: 330,
+                  p: 2,
+                  mr: 'auto',
+                }}
               />
 
               <div className="vm-actions">
@@ -347,6 +357,8 @@ const UserRegister: React.FC<{ onLogout?: () => void }> = () => {
                       <TableCell className="header-name">Phone</TableCell>
                       <TableCell className="header-name">Role</TableCell>
                       <TableCell className="header-name">Department</TableCell>
+                      {/* <TableCell className="header-name">Designation</TableCell>
+                      <TableCell className="header-name">Address</TableCell> */}
                       <TableCell className="header-name">Status</TableCell>
                       <TableCell className="header-name" align="right">Actions</TableCell>
                   </TableRow>
@@ -377,6 +389,8 @@ const UserRegister: React.FC<{ onLogout?: () => void }> = () => {
                           </span>
                       </TableCell>
                       <TableCell>{u.department || "—"}</TableCell>
+                      {/* <TableCell>{u.designation || "—"}</TableCell>
+                      <TableCell>{u.address || "—"}</TableCell> */}
 
                       <TableCell>
                           <span
@@ -407,7 +421,7 @@ const UserRegister: React.FC<{ onLogout?: () => void }> = () => {
                   ))}
                   {filteredUsers.length === 0 && (
                       <TableRow>
-                          <TableCell colSpan={7} align="center">
+                          <TableCell colSpan={10} align="center">
                               No User found.
                           </TableCell>
                       </TableRow>
@@ -451,6 +465,7 @@ const UserRegister: React.FC<{ onLogout?: () => void }> = () => {
               {formError && <Box className="form-error">{formError}</Box>}
 
               <Stack spacing={2}>
+                <Stack direction="row" spacing={2} justifyContent="flex-end" mt={1}>
                   <TextField
                   label="Username"
                   className="input-bg-color"
@@ -468,6 +483,37 @@ const UserRegister: React.FC<{ onLogout?: () => void }> = () => {
                   fullWidth
                   value={form.fullName}
                   onChange={(e) => setField("fullName", e.target.value)}
+                  />
+                  </Stack>
+                  <TextField
+                  label="Password"
+                  className="input-bg-color"
+                  type={showPassword ? 'text' : "password"}
+                  placeholder="*********"
+                  fullWidth
+                  value={form.password}
+                  onChange={(e) => setField("password", e.target.value)}
+                    InputProps = {{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                            aria-label="toggle password visibility"
+                            // className="input-bg-color"
+                            onClick={handleClickShowPassword}
+                            edge="end"
+                            sx={{
+                              color: 'text.secondary',
+                            }}
+                          >
+                            {showPassword ? (
+                              <IconifyIcon icon="ic:baseline-key-off" />
+                            ) : (
+                              <IconifyIcon icon="ic:baseline-key" />
+                            )}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
                   />
 
                   <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
@@ -503,7 +549,19 @@ const UserRegister: React.FC<{ onLogout?: () => void }> = () => {
                       <MenuItem value="Operator">Operator</MenuItem>
                       <MenuItem value="Viewer">Viewer</MenuItem>
                   </TextField>
+                  <TextField
+                      label="Department"
+                      className="input-bg-color"
+                      placeholder="e.g., IT, Operations, Sales"
+                      fullWidth
+                      value={form.department}
+                      onChange={(e) => setField("department", e.target.value)}
+                  />
 
+                  
+                  </Stack>
+
+                  <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
                   <TextField
                       label="Status"
                       className="input-bg-color"
@@ -515,44 +573,33 @@ const UserRegister: React.FC<{ onLogout?: () => void }> = () => {
                       <MenuItem value="Active">Active</MenuItem>
                       <MenuItem value="Inactive">Inactive</MenuItem>
                   </TextField>
-                  </Stack>
-
-                  <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
-                  <TextField
-                      label="Department"
-                      className="input-bg-color"
-                      placeholder="e.g., IT, Operations, Sales"
-                      fullWidth
-                      value={form.department}
-                      onChange={(e) => setField("department", e.target.value)}
-                  />
-                  <TextField
+                  {/* <TextField
                       label="Designation"
                       className="input-bg-color"
                       placeholder="e.g., Manager, Engineer"
                       fullWidth
                       value={form.designation}
                       onChange={(e) => setField("designation", e.target.value)}
-                  />
+                  /> */}
                   </Stack>
 
-                  <TextField
+                  {/* <TextField
                   label="Address"
                   className="input-bg-color"
                   placeholder="Building, Street, Area, Pincode"
                   fullWidth
                   value={form.address}
                   onChange={(e) => setField("address", e.target.value)}
-                  />
+                  /> */}
 
-                  <TextField
+                  {/* <TextField
                   label="Location (City / State)"
                   className="input-bg-color"
                   placeholder="e.g., Chennai, Tamil Nadu"
                   fullWidth
                   value={form.location}
                   onChange={(e) => setField("location", e.target.value)}
-                  />
+                  /> */}
 
                   <Stack direction="row" spacing={2} justifyContent="flex-end" mt={1}>
                   <Button 

@@ -42,9 +42,9 @@ const vendorApi = {
             throw error
         }
     },
-    deleteVendordetails: async (vendor_id:number,payload:object) => {
+    deleteVendordetails: async (vendor_id:number) => {
         try{
-            const response = await Authaxios.delete(`/delete/vendor/${vendor_id}`, payload)
+            const response = await Authaxios.delete(`/delete/vendor/${vendor_id}`)
             return response.data
         }
         catch (error){

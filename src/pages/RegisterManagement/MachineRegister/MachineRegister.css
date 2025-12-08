@@ -486,6 +486,15 @@
   width: 100%;
 }
 
+/* -------------------------------------------- */
+.refresh-button {
+  transition: 0.2s ease;
+}
+
+.refresh-button:hover {
+  transform: rotate(90deg);
+}
+
 
 /* Extra Small Devices (Portrait Phones, less than 576px) */
 @media (max-width: 575.98px) {
@@ -593,6 +602,22 @@
 @media (min-width: 900px) and (max-width: 1124px) {
   .vm-root {
     margin: auto !important;
+  }
+}
+
+
+
+/* For big screens (1200px and above) */
+@media (min-width: 1200px) {
+  .vm-root {
+    overflow-x: auto;
+  }
+}
+
+/* For small and medium screens (below 1200px) */
+@media (max-width: 1200px) {
+  .vm-root {
+    overflow-x: auto;    /* scroll when needed */
   }
 }
 

@@ -259,6 +259,10 @@ const VehicleRegister: React.FC<{ onLogout?: () => void }> = () => {
       setFormError("Tare weight cannot be negative.");
       return false;
     }
+    if (!form.vendorId || form.vendorId <= 0) {
+      setFormError("Please select a vendor.");
+      return false;
+    }
     setFormError(null);
     return true;
   };
@@ -400,8 +404,8 @@ const VehicleRegister: React.FC<{ onLogout?: () => void }> = () => {
                 }}
                 fullWidth
                 sx={{ maxWidth: 300,
-                  // display: "flex",
-                  // alignItems: "end"
+                  p: 2,
+                  mr: 'auto',
                 }}
               />
               <div className="selection-header-lable">
@@ -414,6 +418,11 @@ const VehicleRegister: React.FC<{ onLogout?: () => void }> = () => {
                 value={form.vendorId || ""}
                 onChange={(e) => setField("vendorId", e.target.value ? Number(e.target.value) : undefined)}
                 // helperText="Select vendor (optional)"
+                sx={{ maxWidth: 300,
+                  p: 1,
+                  mr: 'auto',
+                  display: { xs: 'flex', lg: 'flex' },
+                }}
                 >
                   <MenuItem value="">
                     <em>None</em>
@@ -446,7 +455,6 @@ const VehicleRegister: React.FC<{ onLogout?: () => void }> = () => {
                       <TableCell className="header-name">Vendor</TableCell>
                       <TableCell className="header-name">Customer ID</TableCell>
                       <TableCell className="header-name">Tare Weight (kg)</TableCell>
-                      <TableCell className="header-name">Status</TableCell>
                       <TableCell className="header-name">Status</TableCell>
                       {/* <TableCell className="header-name">Available Machines</TableCell> */}
                       <TableCell className="header-name" align="right">Actions</TableCell>
@@ -513,7 +521,7 @@ const VehicleRegister: React.FC<{ onLogout?: () => void }> = () => {
                   ))}
                   {filteredVehicles.length === 0 && (
                       <TableRow>
-                          <TableCell colSpan={7} align="center">
+                          <TableCell colSpan={6} align="center">
                               No Vehicle found.
                           </TableCell>
                       </TableRow>

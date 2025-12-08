@@ -50,7 +50,7 @@ type IPCamera = {
   username?: string;
   password?: string;
   macAddress?: string;
-  model?: string;
+  // model?: string;
   firmwareVersion?: string;
   status: "Online" | "Offline" | "Error";
   location?: string;
@@ -138,7 +138,7 @@ const IPCameraRegister: React.FC = () => {
     username: "",
     password: "",
     macAddress: "",
-    model: "",
+    // model: "",
     // firmwareVersion: "",
     status: "Offline",
     location: "",
@@ -166,7 +166,7 @@ const IPCameraRegister: React.FC = () => {
       username: "",
       password: "",
       macAddress: "",
-      model: "",
+      // model: "",
       firmwareVersion: "",
       status: "Offline", // Default per model
       location: "",
@@ -327,7 +327,10 @@ const IPCameraRegister: React.FC = () => {
                 ),
               }}
               fullWidth
-              sx={{ maxWidth: 300 }}
+              sx={{ maxWidth: 300,
+                p: 2,
+                mr: 'auto',
+               }}
             />
 
             {/* Filter by Machine dropdown (Replaces Vendor dropdown) */}
@@ -343,6 +346,11 @@ const IPCameraRegister: React.FC = () => {
                    // This is just UI logic for the filter dropdown in header 
                    // currently tied to form state for demo, but typically would be a separate filter state
                    setField("machineId", Number(e.target.value)); 
+                }}
+                sx={{
+                  p: 1,
+                  mr: 'auto',
+                  display: { xs: 'flex', lg: 'flex' },
                 }}
               >
                 <MenuItem value=""><em>None</em></MenuItem>
@@ -373,8 +381,13 @@ const IPCameraRegister: React.FC = () => {
                   <TableCell className="header-name">Camera Name</TableCell>
                   <TableCell className="header-name">Machine</TableCell>
                   <TableCell className="header-name">IP Address</TableCell>
+                  <TableCell className="header-name">Mac Address</TableCell>
+                  <TableCell className="header-name">RTSP URL</TableCell>
+                  <TableCell className="header-name">HTTP URL</TableCell>
+                  <TableCell className="header-name">Userneme</TableCell>
+                  {/* <TableCell className="header-name">Model</TableCell> */}
                   <TableCell className="header-name">Location</TableCell>
-                  <TableCell className="header-name">Model</TableCell>
+                  <TableCell className="header-name">Installed Date</TableCell>
                   <TableCell className="header-name">Status</TableCell>
                   <TableCell className="header-name" align="right">Actions</TableCell>
                 </TableRow>
@@ -393,9 +406,14 @@ const IPCameraRegister: React.FC = () => {
                       {machines.find(m => m.id === cam.machineId)?.machineName || "—"}
                     </TableCell>
                     
-                    <TableCell>{cam.ipAddress}</TableCell>
+                    <TableCell>{cam.ipAddress || "_"}</TableCell>
+                    <TableCell>{cam.macAddress || "_"}</TableCell>
+                    <TableCell>{cam.rtspUrl || "—"}</TableCell>
+                    <TableCell>{cam.httpUrl || "—"}</TableCell>
+                    <TableCell>{cam.username || "—"}</TableCell>
+                    {/* <TableCell>{cam.model || "—"}</TableCell> */}
                     <TableCell>{cam.location || "—"}</TableCell>
-                    <TableCell>{cam.model || "—"}</TableCell>
+                    <TableCell>{cam.installedDate || "—"}</TableCell>
 
                     <TableCell>
                       <Chip 
@@ -425,7 +443,7 @@ const IPCameraRegister: React.FC = () => {
                 ))}
                 {filteredCameras.length === 0 && (
                     <TableRow>
-                        <TableCell colSpan={7} align="center">
+                        <TableCell colSpan={11} align="center">
                             No IP Camera found.
                         </TableCell>
                     </TableRow>
@@ -595,14 +613,14 @@ const IPCameraRegister: React.FC = () => {
 
               {/* Hardware Details */}
               {/* <Stack direction={{ xs: "column", sm: "row" }} spacing={2}> */}
-                <TextField
+                {/* <TextField
                   label="Model"
                   className="input-bg-color"
                   placeholder="Camera Model"
                   fullWidth
                   value={form.model || ""}
                   onChange={(e) => setField("model", e.target.value)}
-                />
+                /> */}
                 {/* <TextField
                   label="Firmware Version"
                   placeholder="v1.0.0"

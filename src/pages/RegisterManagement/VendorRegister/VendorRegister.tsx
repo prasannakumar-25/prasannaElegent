@@ -38,8 +38,6 @@ import { useSnackbar } from 'notistack'
 // import vendorApi from "../../../services/vendorApi"
 import vendorApi from "../../../services/vendorApi.ts";
 
-
-
 //  * Vendor type
 
 type Vendor = {
@@ -50,7 +48,6 @@ type Vendor = {
   website?: string;
   gstNumber?: string;
   address?: string;
-  location?: string;
   // description?: string;
   status?: "Active" | "Inactive";
 };
@@ -131,7 +128,8 @@ const VendorRegister: React.FC<{ onLogout?: () => void }> = () => {
     email: "",
     gstNumber: "",
     address: "",
-    location: "",
+    website: "",
+    // location: "",
     // description: "",
     status: "Active",
   });
@@ -139,12 +137,13 @@ const VendorRegister: React.FC<{ onLogout?: () => void }> = () => {
   const fetchVendor = async ()=>{
     try {
       const response = await vendorApi.getVendordetails()
+      console.log("--response---",response)
 
       if (response.success) {
         setVendors(response.data)
         console.log("response.data :", response.data)
       } else {
-        enqueueSnackbar(response.message || "Fained to register vednro", {
+        enqueueSnackbar(response.message || "Failed to register vendor", {
           variant: "error",
         })
       }
@@ -173,7 +172,6 @@ const VendorRegister: React.FC<{ onLogout?: () => void }> = () => {
       website: "",
       gstNumber: "",
       address: "",
-      location: "",
       // description: "",
       status: "Active",
     });
@@ -235,6 +233,7 @@ const VendorRegister: React.FC<{ onLogout?: () => void }> = () => {
         Contact_number: form.phone?.trim(),
         Email: form.email?.trim().toLowerCase(),
         Address: form.address?.trim(),
+        // Location: form.location?.trim(),
         Gst_number: form.gstNumber?.trim(),
         Status: form.status?.trim(),
       }
@@ -259,7 +258,6 @@ const VendorRegister: React.FC<{ onLogout?: () => void }> = () => {
     } finally {
       setLoading(false)
     }
-
     }
 
     setSnackbarOpen(true);
@@ -361,7 +359,7 @@ const VendorRegister: React.FC<{ onLogout?: () => void }> = () => {
           <Box className="vm-header">
             <Typography className="header-content-h4" variant="h4">Vendor Register</Typography>
 
-            
+          
             <TextField
             variant="outlined"
             placeholder="Search..."
@@ -378,7 +376,10 @@ const VendorRegister: React.FC<{ onLogout?: () => void }> = () => {
               ),
             }} 
             fullWidth
-            sx={{ maxWidth: 330}}
+            sx={{ maxWidth: 330,
+              p: 2,
+              mr: 'auto',
+            }}
           /> 
 
             <div className="vm-actions">
@@ -401,10 +402,10 @@ const VendorRegister: React.FC<{ onLogout?: () => void }> = () => {
                   <TableCell className="header-name">Vendor Name</TableCell>
                   <TableCell className="header-name">Email</TableCell>
                   <TableCell className="header-name">Phone</TableCell>
-                  <TableCell className="header-name">Location</TableCell>
-                  <TableCell className="header-name">Status</TableCell>
+                  <TableCell className="header-name">Address</TableCell>
+                  <TableCell className="header-name">GST /Tax Number</TableCell>
                   <TableCell className="header-name">Website</TableCell>
-                  <TableCell className="header-name">GST NO</TableCell>
+                  <TableCell className="header-name">Status</TableCell>
                   <TableCell className="header-name" align="right">Actions</TableCell>
                   {/* <TableCell className="header-name-action" align="right">Actions</TableCell> */}
                 {/* </TableRow> */}
@@ -424,23 +425,14 @@ const VendorRegister: React.FC<{ onLogout?: () => void }> = () => {
 
                     <TableCell>{v.Email || "—"}</TableCell>
                     <TableCell>{v.Contact_number || "—"}</TableCell>
-                    <TableCell>{v.location || "—"}</TableCell>
+                    <TableCell>{v.Address || "—"}</TableCell>
+                    <TableCell>{v.Gst_number || "—"}</TableCell>
                     
 
-                    <TableCell>
-                      <span
-                        className={`status-badge ${
-                          v.Status === "Active" ? "active" : "inactive"
-                        }`}
-                      >
-                        {v.Status}
-                      </span>
-                    </TableCell>
-
                     <TableCell className="vm-row-website">
-                      {v.website ? (
+                      {v.Website ? (//harshith
                         <a
-                          href={v.website}
+                          href={v.Website}
                           target="_blank"
                           rel="noreferrer"
                           className="vm-table-link"
@@ -452,7 +444,16 @@ const VendorRegister: React.FC<{ onLogout?: () => void }> = () => {
                         "—"
                       )}
                     </TableCell>
-                    <TableCell>{v.Gst_number || "—"}</TableCell>
+                    <TableCell>
+                      <span
+                        className={`status-badge ${
+                          v.Status === "Active" ? "active" : "inactive"
+                        }`}
+                      >
+                        {v.Status}
+                      </span>
+                    </TableCell>
+                    {/* <TableCell>{v.Gst_number || "—"}</TableCell> */}
                     <TableCell align="right" className="vm-action-cell">
                       <Button
                         onClick={() => handleOpenEdit(v)}
@@ -473,7 +474,7 @@ const VendorRegister: React.FC<{ onLogout?: () => void }> = () => {
                 ))}
                 {filteredVendorfound.length === 0 && (
                     <TableRow>
-                        <TableCell colSpan={7} align="center">
+                        <TableCell colSpan={8} align="center">
                             No Vendor found.
                         </TableCell>
                     </TableRow>
@@ -545,20 +546,7 @@ const VendorRegister: React.FC<{ onLogout?: () => void }> = () => {
               </Stack>
 
               <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
-
-
-              <TextField
-                label="Phone"
-                className="input-bg-color"
-                placeholder="e.g., +91 9876543210"
-                fullWidth
-                value={form.phone}
-                disabled={loading}
-                onChange={(e) => setField("phone", e.target.value)}
-              />
-              </Stack>
-              <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
-              <TextField
+                <TextField
                 label="Email"
                 className="input-bg-color"
                 placeholder="e.g., vendor@example.com"
@@ -568,15 +556,31 @@ const VendorRegister: React.FC<{ onLogout?: () => void }> = () => {
                 onChange={(e) => setField("email", e.target.value)}
               />
 
-              {/* <TextField
-                label="Website"
-                placeholder="e.g., https://www.company.com"
-                fullWidth
-                value={form.website}
-                disabled={loading}
-                onChange={(e) => setField("website", e.target.value)}
-              /> */}
+              
               </Stack>
+              {/* <Stack direction={{ xs: "column", sm: "row" }} spacing={2}> */}
+              
+              <TextField
+                label="Phone"
+                className="input-bg-color"
+                placeholder="e.g., +91 9876543210"
+                fullWidth
+                value={form.phone}
+                disabled={loading}
+                onChange={(e) => setField("phone", e.target.value)}
+              />
+              <TextField
+                  label="Address (City / State)"
+                  className="input-bg-color"
+                  placeholder="e.g., Chennai, Tamil Nadu"
+                  fullWidth
+                  value={form.address}
+                  disabled={loading}
+                  onChange={(e) => setField("address", e.target.value)}
+                />
+
+              
+              {/* </Stack> */}
 
               <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
               <TextField
@@ -589,7 +593,7 @@ const VendorRegister: React.FC<{ onLogout?: () => void }> = () => {
                 onChange={(e) => setField("gstNumber", e.target.value)}
               />
 
-              <TextField
+              {/* <TextField
                 label="Address"
                 className="input-bg-color"
                 placeholder="Building, Street, Area, Pincode"
@@ -597,18 +601,19 @@ const VendorRegister: React.FC<{ onLogout?: () => void }> = () => {
                 value={form.address}
                 disabled={loading}
                 onChange={(e) => setField("address", e.target.value)}
-              />
-              </Stack>
+              />*/}
+              </Stack> 
 
-              <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
+              {/* <Stack direction={{ xs: "column", sm: "row" }} spacing={2}> */}
+                
                 <TextField
-                  label="Location (City / State)"
+                  label="Website"
                   className="input-bg-color"
-                  placeholder="e.g., Chennai, Tamil Nadu"
+                  placeholder="e.g., https://www.company.com"
                   fullWidth
-                  value={form.location}
+                  value={form.website}
                   disabled={loading}
-                  onChange={(e) => setField("location", e.target.value)}
+                  onChange={(e) => setField("website", e.target.value)}
                 />
                 <TextField
                   label="Status"
@@ -621,7 +626,7 @@ const VendorRegister: React.FC<{ onLogout?: () => void }> = () => {
                   <MenuItem value="Active">Active</MenuItem>
                   <MenuItem value="Inactive">Inactive</MenuItem>
                 </TextField>
-              </Stack>
+              {/* </Stack> */}
 
               <Stack direction="row" spacing={2} justifyContent="flex-end" mt={1}>
                 <Button variant="text" className="cancel-button" onClick={handleCloseDrawer} 
