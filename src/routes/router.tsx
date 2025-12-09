@@ -216,11 +216,11 @@ const routes: RouteObject[] = [
             path: paths.login,
             // element: <Login />,
             element: (
-              <MainLayout>
+              // <MainLayout>
                 <Suspense fallback={<PageLoader />}>
                   <Login />
                 </Suspense>
-              </MainLayout>
+              // </MainLayout>
             ),
           },
           {

@@ -385,8 +385,14 @@ const MachineRegister: React.FC<{ onLogout?: () => void }> = () => {
         > */}
 
           <main className="vm-content">
-              <Box className="vm-header">
-              <Typography variant="h4">Machine Register</Typography>
+              <Box className="vm-header"
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap : 2
+              }}
+              >
+              <Typography variant="h4" sx={{ flexGrow: 1 }}>Machine Register</Typography>
               <TextField
                 variant="outlined"
                 placeholder="Search..."
@@ -425,16 +431,46 @@ const MachineRegister: React.FC<{ onLogout?: () => void }> = () => {
                 display: { xs: 'flex', lg: 'flex' },
               }}
               >
-                {/* <MenuItem value= "">
+                <MenuItem value= "">
                   <em>None</em>
                 </MenuItem>
-              {vendors.map((v) => (
+              {/* {vendors.map((v) => (
                 <MenuItem key={v.id} value={v.id}>
                   {v.vendorName}
                 </MenuItem>
               ))} */}
               </TextField>
               </div>
+              {/* ✅ Refresh Button */}
+              <IconButton
+                  // onClick={handleRefresh}
+                  disabled={loading}
+                  sx={{
+                    // bgcolor: "#609b5bff",
+                    color: "#46943fff",
+                    // "&:hover": { bgcolor: "success.dark" },
+                    borderRadius: "50%",
+                    width: 40,
+                    height: 40
+                  }}
+              >
+                  <IconifyIcon icon="mdi:refresh" />
+              </IconButton>
+              <IconButton
+                  // onClick={handleRefresh}
+                  disabled={loading}
+                  sx={{
+                    // bgcolor: "#e25b5bff",
+                    color: "#e02121ff",
+                    // "&:hover": { bgcolor: "red" },
+                    borderRadius: "50%",
+                    width: 40,
+                    height: 40
+                  }}
+              >
+                  <IconifyIcon icon="material-symbols:close" />
+              </IconButton>
+
               <div className="vm-actions">
                   <Button
                   variant="contained"

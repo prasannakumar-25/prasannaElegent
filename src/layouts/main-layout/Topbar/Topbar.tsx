@@ -106,7 +106,7 @@ const Topbar = ({ handleDrawerToggle }: TopbarProps): ReactElement => {
           /> */}
           {/* <Typography variant="h1" component="h1" className='text-dark' sx={{ color: "#303030ff", fontSize: "34px" , fontFamily: "inherit"}}> */}
           <Typography variant="h1" component="h1" className='text-dark' 
-          sx={{ background: "linear-gradient(90deg, #1a1a1aff, #3692faff)",WebkitTextFillColor: "transparent",WebkitBackgroundClip: "text", fontSize: "34px" , fontFamily: "inherit"}}>
+          sx={{ background: "linear-gradient(90deg, #1a1a1aff, #1a1b1bff)",WebkitTextFillColor: "transparent",WebkitBackgroundClip: "text", fontSize: "34px" , fontFamily: "inherit"}}>
             {pathname === '/' ? 'Dashboard' : title}
           </Typography>
         </Stack>

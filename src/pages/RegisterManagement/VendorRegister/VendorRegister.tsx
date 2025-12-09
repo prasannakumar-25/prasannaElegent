@@ -35,8 +35,8 @@ import { GridApi, useGridApiRef } from '@mui/x-data-grid';
 import IconifyIcon from "components/base/IconifyIcon";
 import '../MachineRegister/MachineRegister.css'
 import { useSnackbar } from 'notistack'
-// import vendorApi from "../../../services/vendorApi"
-import vendorApi from "../../../services/vendorApi.ts";
+import vendorApi from "services/vendorApi";
+
 
 //  * Vendor type
 
@@ -227,7 +227,7 @@ const VendorRegister: React.FC<{ onLogout?: () => void }> = () => {
 
       console.log("newVendor :", newVendor)
       setSnackbarMessage("Vendor added successfully")
-          try {
+    try {
       const payload = {
         Vendor_name: form.vendorName.trim(),
         Contact_number: form.phone?.trim(),
@@ -356,10 +356,14 @@ const VendorRegister: React.FC<{ onLogout?: () => void }> = () => {
        {/* <Sidebar />s */}
 
         <main className="vm-content">
-          <Box className="vm-header">
-            <Typography className="header-content-h4" variant="h4">Vendor Register</Typography>
-
-          
+          <Box className="vm-header"
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gab: 2
+            }}
+          >
+            <Typography  variant="h4" >Vendor Register</Typography> 
             <TextField
             variant="outlined"
             placeholder="Search..."
@@ -381,7 +385,36 @@ const VendorRegister: React.FC<{ onLogout?: () => void }> = () => {
               mr: 'auto',
             }}
           /> 
-
+            {/* ✅ Refresh Button */}
+            <IconButton
+                // onClick={handleRefresh}
+                disabled={loading}
+                sx={{
+                  // bgcolor: "#609b5bff",
+                  color: "#46943fff",
+                  // "&:hover": { bgcolor: "success.dark" },
+                  borderRadius: "50%",
+                  width: 40,
+                  height: 40
+                }}
+            >
+                <IconifyIcon icon="mdi:refresh" />
+            </IconButton>
+            <IconButton
+                // onClick={handleRefresh}
+                disabled={loading}
+                sx={{
+                  // bgcolor: "#e25b5bff",
+                  color: "#e02121ff",
+                  // "&:hover": { bgcolor: "red" },
+                  borderRadius: "50%",
+                  width: 40,
+                  height: 40
+                }}
+            >
+                <IconifyIcon icon="material-symbols:close" />
+            </IconButton>
+            
             <div className="vm-actions">
               <Button
                 variant="contained"
@@ -392,6 +425,7 @@ const VendorRegister: React.FC<{ onLogout?: () => void }> = () => {
                 Add Vendor
               </Button>
             </div>
+            
           </Box>
 
           {/* TABLE VERSION */}
