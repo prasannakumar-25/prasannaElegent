@@ -16,7 +16,7 @@ import { drawerWidth } from 'layouts/main-layout';
 import { useLocation } from 'react-router-dom';
 import capitalizePathname from 'helpers/capitalize-pathname';
 import AccountDropdown from './AccountDropdown';
-import LanguageDropdown from './LanguageDropdown';
+// import LanguageDropdown from './LanguageDropdown';
 import Image from 'components/base/Image';
 // import logo from 'assets/logo/elegent-favicon-logo.png';
 import Acutuz from 'assets/logo/actuz-logo.webp';
@@ -111,12 +111,12 @@ const Topbar = ({ handleDrawerToggle }: TopbarProps): ReactElement => {
           </Typography>
         </Stack>
         <Stack direction="row" alignItems="center" gap={{ xs: 1, sm: 1.75 }}>
-          <LanguageDropdown />
-          <IconButton color="inherit" centerRipple sx={{ bgcolor: 'inherit', p: 0.75 }}>
+          {/* <LanguageDropdown /> */}
+          {/* <IconButton color="inherit" centerRipple sx={{ bgcolor: 'inherit', p: 0.75 }}>
             <Badge badgeContent={4} color="primary">
               <IconifyIcon icon="carbon:notification-filled" width={24} height={24} />
             </Badge>
-          </IconButton>
+          </IconButton> */}
           <AccountDropdown />
         </Stack>
       </Toolbar>

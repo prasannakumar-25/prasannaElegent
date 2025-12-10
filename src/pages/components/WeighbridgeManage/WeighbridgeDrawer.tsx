@@ -107,13 +107,20 @@ const WeighbridgeDrawer: React.FC<WeighbridgeDrawerProps> = ({
         },
       }}
     >
-      <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
+      {/* <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
         <Typography variant="h6" fontWeight="bold">
           {initialData ? "Edit Weighbridge" : "Add New Weighbridge"}
         </Typography>
         <IconButton onClick={onClose}>
           <IconifyIcon icon="material-symbols:close-rounded" />
         </IconButton>
+      </Box> */}
+
+      <Box className="drawer-header">
+      <Typography variant="h6">{initialData ? "Edit Machine" : "Add New Machine"}</Typography>
+      <IconButton onClick={onClose} aria-label="close">
+          <IconifyIcon icon="material-symbols:close-rounded" />
+      </IconButton>
       </Box>
 
       <Stack spacing={2.5}>
@@ -121,6 +128,7 @@ const WeighbridgeDrawer: React.FC<WeighbridgeDrawerProps> = ({
 
         <TextField
           label="Associated Machine"
+          className="input-bg-color label-black"
           select
           fullWidth
           value={form.machineId || ""}
@@ -139,6 +147,7 @@ const WeighbridgeDrawer: React.FC<WeighbridgeDrawerProps> = ({
 
         <TextField
           label="Serial No"
+          className="input-bg-color label-black"
           placeholder="Enter Serial Number"
           fullWidth
           value={form.serialNo}
@@ -149,6 +158,7 @@ const WeighbridgeDrawer: React.FC<WeighbridgeDrawerProps> = ({
         <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
           <TextField
             label="Port"
+            className="input-bg-color label-black"
             select
             fullWidth
             value={form.port}
@@ -161,6 +171,7 @@ const WeighbridgeDrawer: React.FC<WeighbridgeDrawerProps> = ({
 
           <TextField
             label="Baud Rate"
+            className="input-bg-color label-black"
             placeholder="e.g. 19200"
             fullWidth
             value={form.baudRate}
@@ -172,6 +183,7 @@ const WeighbridgeDrawer: React.FC<WeighbridgeDrawerProps> = ({
         <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
           <TextField
             label="Data Bit"
+            className="input-bg-color label-black"
             type="number"
             fullWidth
             value={form.dataBit}
@@ -181,6 +193,7 @@ const WeighbridgeDrawer: React.FC<WeighbridgeDrawerProps> = ({
 
           <TextField
             label="Stop Bit"
+            className="input-bg-color label-black"
             type="number"
             fullWidth
             value={form.stopBit}
@@ -191,6 +204,7 @@ const WeighbridgeDrawer: React.FC<WeighbridgeDrawerProps> = ({
 
         <TextField
           label="Party (Parity)"
+          className="input-bg-color label-black"
           placeholder="e.g. None, Even, Odd"
           fullWidth
           value={form.party}
@@ -199,13 +213,24 @@ const WeighbridgeDrawer: React.FC<WeighbridgeDrawerProps> = ({
         />
 
         <Stack direction="row" spacing={2} justifyContent="flex-end" pt={2}>
+        <Button variant="text" className="cancel-button" onClick={onClose} 
+        >
+            Cancel
+        </Button>
+        <Button variant="contained" className="edit-button" onClick={handleSubmit} 
+        >
+            {initialData ? "Update Machine" : "Save Machine"}
+        </Button>
+        </Stack>
+
+        {/* <Stack direction="row" spacing={2} justifyContent="flex-end" pt={2}>
           <Button onClick={onClose} color="inherit">
             Cancel
           </Button>
           <Button variant="contained" onClick={handleSubmit} disabled={loading}>
             {initialData ? "Update" : "Save"}
           </Button>
-        </Stack>
+        </Stack> */}
       </Stack>
     </Drawer>
   );

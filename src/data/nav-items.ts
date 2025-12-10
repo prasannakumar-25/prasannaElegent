@@ -159,11 +159,19 @@ const navItems: NavItem[] = [
     collapsible: false,
   },
   {
-    title: 'MachineRegister',
+    title: 'MachineManage',
     path: '/machineManagemant',
     icon: 'streamline-cyber:virtual-machine-3',
     active: true,
     collapsible: false,
+      //  sublist: [ 
+      // {
+      //   title: 'Reports',
+      //   path: '/',
+      //   active: true,
+      //   collapsible: false,
+      // },
+      //  ]
   },
   {
     title: 'UserRgister',

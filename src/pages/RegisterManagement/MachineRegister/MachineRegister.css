@@ -496,6 +496,16 @@
 }
 
 
+.label-black .MuiInputLabel-root {
+  color: #292929 !important;
+  font-weight: 600;
+}
+
+.label-black .MuiInputLabel-root.Mui-focused {
+  color: #292929 !important;
+
+}
+
 /* Extra Small Devices (Portrait Phones, less than 576px) */
 @media (max-width: 575.98px) {
   .drawer-header {

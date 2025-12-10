@@ -682,7 +682,7 @@ const MachineRegister: React.FC<{ onLogout?: () => void }> = () => {
                   onChange={(e) => setField("machineType", e.target.value as "Company" | "ThirdParty" | "Estate")}
                   >
                   <MenuItem value="Company">Company</MenuItem>
-                  <MenuItem value="ThirdParty">ThirdParty</MenuItem>
+                  {/* <MenuItem value="ThirdParty">ThirdParty</MenuItem>  */}
                   <MenuItem value="Estate">Estate</MenuItem>
                   </TextField>
 

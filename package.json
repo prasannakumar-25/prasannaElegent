@@ -19,6 +19,7 @@
     "@mui/x-data-grid": "^7.2.0",
     "@mui/x-data-grid-generator": "^7.2.0",
     "@mui/x-date-pickers": "^8.21.0",
+    "antd": "^6.1.0",
     "axios": "^1.13.2",
     "dayjs": "^1.11.19",
     "echarts": "^5.5.0",

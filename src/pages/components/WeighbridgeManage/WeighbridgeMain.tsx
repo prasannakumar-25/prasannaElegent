@@ -151,8 +151,11 @@ const WeighbridgeMain: React.FC<WeighbridgeMainProps> = ({
                 onChange={handleChangeSearch}
                 InputProps={{
                   startAdornment: (
-                    <InputAdornment position="start">
-                      <IconifyIcon icon="mdi:search" color="action.active" />
+                    // <InputAdornment position="start">
+                    //   <IconifyIcon icon="mdi:search" color="action.active" />
+                    // </InputAdornment>
+                    <InputAdornment position="end" sx={{ width: 24, height: 24 }}>
+                      <IconifyIcon icon="mdi:search" width={1} height={1} />
                     </InputAdornment>
                   ),
                 }}
@@ -226,8 +229,9 @@ const WeighbridgeMain: React.FC<WeighbridgeMainProps> = ({
                 <IconButton
                   onClick={() => console.log("Refresh")}
                   sx={{
-                    bgcolor: theme.palette.action.hover,
-                    "&:hover": { bgcolor: theme.palette.action.selected },
+                    color: 'primary.main',
+                    // bgcolor: theme.palette.action.hover,
+                    // "&:hover": { bgcolor: theme.palette.action.selected },
                   }}
                 >
                   <IconifyIcon icon="mdi:refresh" />
@@ -274,10 +278,16 @@ const WeighbridgeMain: React.FC<WeighbridgeMainProps> = ({
 
                   <TableCell align="right">
                     <Stack direction="row" spacing={1} justifyContent="flex-end">
-                      <IconButton onClick={() => onEdit(wb)} color="primary" size="small">
+                      <IconButton 
+                      onClick={() => onEdit(wb)}  
+                      className="vm-btn vm-action-btn-edit"
+                      >
                         <IconifyIcon icon="fluent:notepad-edit-16-regular" />
                       </IconButton>
-                      <IconButton onClick={() => onDelete(wb.id)} color="error" size="small">
+                      <IconButton 
+                      onClick={() => onDelete(wb.id)} 
+                      className="vm-btn vm-action-btn-delete"
+                      >
                         <IconifyIcon icon="wpf:delete" />
                       </IconButton>
                     </Stack>

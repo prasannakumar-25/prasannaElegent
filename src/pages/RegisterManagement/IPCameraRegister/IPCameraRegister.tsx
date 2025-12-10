@@ -1443,6 +1443,187 @@
 
 
 
+// import React, { useEffect, useState } from "react";
+// import {
+//   Dialog,
+//   DialogTitle,
+//   DialogContent,
+//   DialogActions,
+//   Typography,
+//   Button,
+//   Snackbar,
+//   Alert,
+// } from "@mui/material";
+// import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+// import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+// import { useSnackbar } from 'notistack';
+
+// // Sub Components
+// import IPCameraMain from "pages/components/IPCameraManage/IPCameraMain";
+// import IPCameraDrawer from "pages/components/IPCameraManage/IPCameraDrawer";
+
+
+
+// // --- Global Types ---
+// export type Machine = {
+//   id: number;
+//   machineName: string;
+// };
+
+// export type IPCamera = {
+//   id: number;
+//   machineId: number;
+//   cameraName: string;
+//   ipAddress: string;
+//   rtspUrl?: string;
+//   httpUrl?: string;
+//   username?: string;
+//   password?: string;
+//   macAddress?: string;
+//   status: "Online" | "Offline" | "Error";
+//   location?: string;
+//   installedDate?: string; // Format: YYYY-MM-DD
+// };
+
+// const IPCameraRegister: React.FC = () => {
+//   // Data State
+//   const [cameras, setCameras] = useState<IPCamera[]>([]);
+//   const [machines, setMachines] = useState<Machine[]>([]);
+  
+//   // UI Control State
+//   const [drawerOpen, setDrawerOpen] = useState(false);
+//   const [editingCamera, setEditingCamera] = useState<IPCamera | null>(null);
+
+//   // Feedback State
+//   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+//   const [cameraToDelete, setCameraToDelete] = useState<number | null>(null);
+//   const [snackbarOpen, setSnackbarOpen] = useState(false);
+//   const [snackbarMessage, setSnackbarMessage] = useState("");
+
+//   const { enqueueSnackbar } = useSnackbar();
+
+//   // Load Mock Data
+//   useEffect(() => {
+//     setMachines([
+//         { id: 1, machineName: "Machine A" },
+//         { id: 2, machineName: "Machine B" },
+//         { id: 3, machineName: "Machine C" },
+//     ]);
+//     setCameras([
+//         { id: 1, machineId: 1, cameraName: "Cam Front", ipAddress: "192.168.1.10", status: "Online", location: "Gate 1", installedDate: "2023-11-01" },
+//         { id: 2, machineId: 2, cameraName: "Cam Back", ipAddress: "192.168.1.11", status: "Offline", location: "Conveyor", installedDate: "2023-12-15" },
+//         { id: 3, machineId: 1, cameraName: "Cam Side", ipAddress: "192.168.1.12", status: "Error", location: "Warehouse", installedDate: "2024-01-10" },
+        
+//     ]);
+//   }, []);
+
+//   // --- Handlers ---
+//   const handleOpenAdd = () => {
+//     setEditingCamera(null);
+//     setDrawerOpen(true);
+//   };
+
+//   const handleOpenEdit = (cam: IPCamera) => {
+//     setEditingCamera(cam);
+//     setDrawerOpen(true);
+//   };
+
+//   const handleCloseDrawer = () => {
+//     setDrawerOpen(false);
+//     setEditingCamera(null);
+//   };
+
+//   const handleSave = (formData: IPCamera) => {
+//     // Simulate API call
+//     if (editingCamera) {
+//       setCameras((prev) => prev.map((c) => (c.id === editingCamera.id ? { ...formData, id: editingCamera.id } : c)));
+//       enqueueSnackbar("Camera updated successfully", { variant: "success" });
+//     } else {
+//       const newCamera: IPCamera = { ...formData, id: Date.now() };
+//       setCameras((prev) => [newCamera, ...prev]);
+//       enqueueSnackbar("Camera added successfully", { variant: "success" });
+//     }
+//     handleCloseDrawer();
+//   };
+
+//   // --- Delete Logic ---
+//   const initiateDelete = (id: number) => {
+//     setCameraToDelete(id);
+//     setDeleteDialogOpen(true);
+//   };
+
+//   const confirmDelete = () => {
+//     if (cameraToDelete !== null) {
+//       setCameras((prev) => prev.filter((c) => c.id !== cameraToDelete));
+//       setSnackbarMessage("Camera deleted successfully");
+//       setSnackbarOpen(true);
+//     }
+//     setDeleteDialogOpen(false);
+//     setCameraToDelete(null);
+//   };
+
+//   return (
+//     <LocalizationProvider dateAdapter={AdapterDayjs}>
+//       <div className="vm-root">
+        
+//         {/* 1. Main View (Table, Filters, CSV) */}
+//         <IPCameraMain
+//           cameras={cameras}
+//           machines={machines}
+//           onAdd={handleOpenAdd}
+//           onEdit={handleOpenEdit}
+//           onDelete={initiateDelete}
+//         />
+
+//         {/* 2. Drawer View (Form) */}
+//         <IPCameraDrawer
+//           open={drawerOpen}
+//           onClose={handleCloseDrawer}
+//           onSave={handleSave}
+//           initialData={editingCamera}
+//           machines={machines}
+//         />
+
+//         {/* 3. Global Dialogs */}
+//         <Dialog open={deleteDialogOpen} onClose={() => setDeleteDialogOpen(false)} maxWidth="xs" fullWidth>
+//           <DialogTitle>Confirm Delete</DialogTitle>
+//           <DialogContent>
+//             <Typography>Are you sure you want to delete this Camera?</Typography>
+//           </DialogContent>
+//           <DialogActions>
+//             <Button onClick={() => setDeleteDialogOpen(false)} variant="outlined" color="inherit">Cancel</Button>
+//             <Button onClick={confirmDelete} color="error" variant="contained">Delete</Button>
+//           </DialogActions>
+//         </Dialog>
+
+//         {/* Legacy Snackbar (Optional if using notistack) */}
+//         <Snackbar
+//           open={snackbarOpen}
+//           autoHideDuration={3000}
+//           onClose={() => setSnackbarOpen(false)}
+//           anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+//         >
+//           <Alert onClose={() => setSnackbarOpen(false)} severity="success" variant="filled">
+//             {snackbarMessage}
+//           </Alert>
+//         </Snackbar>
+
+//       </div>
+//     </LocalizationProvider>
+//   );
+// };
+
+// export default IPCameraRegister;
+
+
+
+
+
+
+
+
+
+
 import React, { useEffect, useState } from "react";
 import {
   Dialog,
@@ -1462,7 +1643,8 @@ import { useSnackbar } from 'notistack';
 import IPCameraMain from "pages/components/IPCameraManage/IPCameraMain";
 import IPCameraDrawer from "pages/components/IPCameraManage/IPCameraDrawer";
 
-
+// Custom CSS (Your existing CSS)
+import "../../RegisterManagement/MachineRegister/MachineRegister.css";
 
 // --- Global Types ---
 export type Machine = {
@@ -1513,6 +1695,8 @@ const IPCameraRegister: React.FC = () => {
         { id: 1, machineId: 1, cameraName: "Cam Front", ipAddress: "192.168.1.10", status: "Online", location: "Gate 1", installedDate: "2023-11-01" },
         { id: 2, machineId: 2, cameraName: "Cam Back", ipAddress: "192.168.1.11", status: "Offline", location: "Conveyor", installedDate: "2023-12-15" },
         { id: 3, machineId: 1, cameraName: "Cam Side", ipAddress: "192.168.1.12", status: "Error", location: "Warehouse", installedDate: "2024-01-10" },
+        { id: 4, machineId: 3, cameraName: "Cam Top", ipAddress: "192.168.1.13", status: "Online", location: "Assembly", installedDate: "2024-02-05" },
+        { id: 5, machineId: 2, cameraName: "Cam Entry", ipAddress: "192.168.1.14", status: "Online", location: "Entrance", installedDate: "2024-03-20" },
     ]);
   }, []);
 
@@ -1563,9 +1747,9 @@ const IPCameraRegister: React.FC = () => {
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <div className="vm-root">
+      <div className="vm-root" style={{ padding: '20px' }}>
         
-        {/* 1. Main View (Table, Filters, CSV) */}
+        {/* 1. Main View (DataGrid & Filters) */}
         <IPCameraMain
           cameras={cameras}
           machines={machines}
@@ -1595,7 +1779,7 @@ const IPCameraRegister: React.FC = () => {
           </DialogActions>
         </Dialog>
 
-        {/* Legacy Snackbar (Optional if using notistack) */}
+        {/* Legacy Snackbar */}
         <Snackbar
           open={snackbarOpen}
           autoHideDuration={3000}
