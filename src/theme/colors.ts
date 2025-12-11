@@ -108,7 +108,7 @@ export const cream = {
   200: '#ebf1f7ff',
   300: '#e5eff8ff',
   400: '#d9e9f5ff',
-  500: '#e9f5fdff',
+  500: '#e3f1faff',
   600: '#e0eef8ff',
   700: '#ebf5fcff',
   800: '#cae1f0ff',

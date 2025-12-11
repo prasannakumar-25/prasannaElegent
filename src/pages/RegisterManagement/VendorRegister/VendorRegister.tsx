@@ -49,7 +49,6 @@ type Vendor = {
   gstNumber?: string;
   address?: string;
   // description?: string;
-  status?: "Active" | "Inactive";
 };
 
 // const initialVendors: Vendor[] = [
@@ -131,7 +130,6 @@ const VendorRegister: React.FC<{ onLogout?: () => void }> = () => {
     website: "",
     // location: "",
     // description: "",
-    status: "Active",
   });
 
   const fetchVendor = async ()=>{
@@ -173,7 +171,6 @@ const VendorRegister: React.FC<{ onLogout?: () => void }> = () => {
       gstNumber: "",
       address: "",
       // description: "",
-      status: "Active",
     });
     setFormError(null);
     setDrawerOpen(true);
@@ -235,7 +232,6 @@ const VendorRegister: React.FC<{ onLogout?: () => void }> = () => {
         Address: form.address?.trim(),
         // Location: form.location?.trim(),
         Gst_number: form.gstNumber?.trim(),
-        Status: form.status?.trim(),
       }
 
       console.log("payload :", payload)
@@ -439,7 +435,6 @@ const VendorRegister: React.FC<{ onLogout?: () => void }> = () => {
                   <TableCell className="header-name">Address</TableCell>
                   <TableCell className="header-name">GST /Tax Number</TableCell>
                   <TableCell className="header-name">Website</TableCell>
-                  <TableCell className="header-name">Status</TableCell>
                   <TableCell className="header-name" align="right">Actions</TableCell>
                   {/* <TableCell className="header-name-action" align="right">Actions</TableCell> */}
                 {/* </TableRow> */}
@@ -477,15 +472,6 @@ const VendorRegister: React.FC<{ onLogout?: () => void }> = () => {
                       ) : (
                         "—"
                       )}
-                    </TableCell>
-                    <TableCell>
-                      <span
-                        className={`status-badge ${
-                          v.Status === "Active" ? "active" : "inactive"
-                        }`}
-                      >
-                        {v.Status}
-                      </span>
                     </TableCell>
                     {/* <TableCell>{v.Gst_number || "—"}</TableCell> */}
                     <TableCell align="right" className="vm-action-cell">
@@ -649,17 +635,7 @@ const VendorRegister: React.FC<{ onLogout?: () => void }> = () => {
                   disabled={loading}
                   onChange={(e) => setField("website", e.target.value)}
                 />
-                <TextField
-                  label="Status"
-                  className="input-bg-color"
-                  select
-                  value={form.status}
-                  disabled={loading}
-                  onChange={(e) => setField("status", e.target.value as "Active" | "Inactive")}
-                >
-                  <MenuItem value="Active">Active</MenuItem>
-                  <MenuItem value="Inactive">Inactive</MenuItem>
-                </TextField>
+                
               {/* </Stack> */}
 
               <Stack direction="row" spacing={2} justifyContent="flex-end" mt={1}>

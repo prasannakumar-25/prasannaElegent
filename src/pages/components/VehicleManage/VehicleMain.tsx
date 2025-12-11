@@ -551,14 +551,16 @@ const VehicleMain: React.FC<VehicleMainProps> = ({
             <Typography variant="h4" fontWeight="bold" color="text.primary">
               Vehicle Register
             </Typography>
+            <Tooltip title="Add Vehicle" arrow>
             <Button
               variant="contained"
               onClick={onAdd}
-              startIcon={<IconifyIcon icon="mdi:plus" />}
+              startIcon={<IconifyIcon icon="fluent:vehicle-truck-checkmark-28-regular" />}
               sx={{ px: 3, py: 1, borderRadius: 2 }}
             >
               Add Vehicle
             </Button>
+            </Tooltip>
           </Stack>
 
           {/* Filter Grid */}
@@ -625,6 +627,7 @@ const VehicleMain: React.FC<VehicleMainProps> = ({
 
             {/* Actions */}
             <Grid item xs={12} md={3} sx={{ display: 'flex', justifyContent: { xs: 'flex-start', md: 'flex-end' }, gap: 1 }}>
+              <Tooltip title="Clear" arrow>
               <Button
                 variant="outlined"
                 color="secondary"
@@ -634,8 +637,9 @@ const VehicleMain: React.FC<VehicleMainProps> = ({
               >
                 Clear
               </Button>
+              </Tooltip>
 
-              <Tooltip title="Download CSV">
+              <Tooltip title="Download CSV" arrow>
                 <IconButton
                   onClick={handleDownloadCSV}
                   sx={{ color: 'primary.main', '&:hover': { bgcolor: theme.palette.primary.light + '40' } }}
@@ -644,7 +648,7 @@ const VehicleMain: React.FC<VehicleMainProps> = ({
                 </IconButton>
               </Tooltip>
 
-              <Tooltip title="Refresh">
+              <Tooltip title="Refresh" arrow>
                 <IconButton
                   onClick={() => console.log("Refresh")}
                   sx={{ color: 'primary.main' }}

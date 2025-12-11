@@ -891,7 +891,7 @@ export type User = {
   phoneNumber: string;
   role: "Admin" | "Operator" | "Viewer";
   status: "Active" | "Inactive";
-  createdDate?: string;
+  createdDate: string;
 };
 
 const UserRegister: React.FC = () => {

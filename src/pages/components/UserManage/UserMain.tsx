@@ -501,7 +501,7 @@ const UserMain: React.FC<UserMainProps> = ({
     {
         field: 'fullName',
         headerName: 'Full Name',
-        flex: 1,
+        // flex: 1,
         minWidth: 160,
         renderCell: (params: GridRenderCellParams) => (
             <Typography variant="subtitle2" fontWeight={600} color="text.primary">
@@ -540,7 +540,7 @@ const UserMain: React.FC<UserMainProps> = ({
         headerName: 'Joined Date',
         flex: 0.8,
         minWidth: 140,
-        valueFormatter: (params: any) => {
+        renderCell: (params: any) => {
             if (!params.value) return "—";
             return dayjs(params.value).format('DD MMM YYYY');
         }
@@ -553,7 +553,7 @@ const UserMain: React.FC<UserMainProps> = ({
             <Chip 
                 label={params.value} 
                 color={params.value === "Active" ? "success" : "default"}
-                size="small"
+                // size="small"
                 sx={{ fontWeight: 'bold' }}
             />
         )
@@ -603,23 +603,27 @@ const UserMain: React.FC<UserMainProps> = ({
             <Typography variant="h4" sx={{ flexGrow: 1, fontWeight: 'bold' }}>
                 User Register
             </Typography>
+            <Tooltip title="Add User" arrow>
             <Button
               variant="contained"
               onClick={onAdd}
+              startIcon={<IconifyIcon icon="gridicons:user-add"/>}
               sx={{ px: 3, py: 1, borderRadius: 2 }}
             >
               Add User
             </Button>
+            </Tooltip>
           </Stack>
 
           {/* Filter Grid */}
           <Grid container spacing={2} alignItems="center">
             {/* Search */}
             <Grid item xs={12} sm={6} md={3}>
+              <Tooltip title="Search Name or Email" arrow>
               <TextField
                 variant="outlined"
-                label="Search Name or Email"
-                placeholder="Search..."
+                label="Search "
+                placeholder="Search Name or Email..."
                 size="small"
                 fullWidth
                 value={search}
@@ -631,10 +635,11 @@ const UserMain: React.FC<UserMainProps> = ({
                     </InputAdornment>
                   ),
                 }}
-              />
+              /></Tooltip>
             </Grid>
 
             {/* From Date */}
+            <Tooltip title="From Date" arrow>
             <Grid item xs={6} sm={3} md={2}>
               <DatePicker
                 label="From Date"
@@ -644,8 +649,10 @@ const UserMain: React.FC<UserMainProps> = ({
                 slotProps={{ textField: { size: 'small', fullWidth: true } }}
               />
             </Grid>
+            </Tooltip>
 
             {/* To Date */}
+            <Tooltip title="To Date" arrow>
             <Grid item xs={6} sm={3} md={2}>
               <DatePicker
                 label="To Date"
@@ -655,8 +662,10 @@ const UserMain: React.FC<UserMainProps> = ({
                 slotProps={{ textField: { size: 'small', fullWidth: true } }}
               />
             </Grid>
+            </Tooltip>
 
             {/* Role Filter */}
+            <Tooltip title="Filter Role" arrow>
             <Grid item xs={12} sm={6} md={2}>
               <TextField
                 select
@@ -673,9 +682,11 @@ const UserMain: React.FC<UserMainProps> = ({
                 <MenuItem value="Viewer">Viewer</MenuItem>
               </TextField>
             </Grid>
+            </Tooltip>
 
             {/* Actions */}
             <Grid item xs={12} md={3} sx={{ display: 'flex', justifyContent: { xs: 'flex-start', md: 'flex-end' }, gap: 1 }}>
+              <Tooltip title="Clear" arrow>
               <Button
                 variant="outlined"
                 color="secondary"
@@ -685,8 +696,9 @@ const UserMain: React.FC<UserMainProps> = ({
               >
                 Clear
               </Button>
+              </Tooltip>
 
-              <Tooltip title="Download CSV">
+              <Tooltip title="Download CSV" arrow>
                 <IconButton
                   onClick={handleDownloadCSV}
                   sx={{
@@ -698,7 +710,7 @@ const UserMain: React.FC<UserMainProps> = ({
                 </IconButton>
               </Tooltip>
 
-              <Tooltip title="Refresh">
+              <Tooltip title="Refresh" arrow>
                 <IconButton
                   onClick={() => console.log("Refresh")}
                   sx={{ color: 'primary.main' }}

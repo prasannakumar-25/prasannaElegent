@@ -1659,9 +1659,9 @@ export type IPCamera = {
   ipAddress: string;
   rtspUrl?: string;
   httpUrl?: string;
-  username?: string;
-  password?: string;
-  macAddress?: string;
+  username: string;
+  password: string;
+  macAddress: string;
   status: "Online" | "Offline" | "Error";
   location?: string;
   installedDate?: string; // Format: YYYY-MM-DD
@@ -1692,11 +1692,26 @@ const IPCameraRegister: React.FC = () => {
         { id: 3, machineName: "Machine C" },
     ]);
     setCameras([
-        { id: 1, machineId: 1, cameraName: "Cam Front", ipAddress: "192.168.1.10", status: "Online", location: "Gate 1", installedDate: "2023-11-01" },
-        { id: 2, machineId: 2, cameraName: "Cam Back", ipAddress: "192.168.1.11", status: "Offline", location: "Conveyor", installedDate: "2023-12-15" },
-        { id: 3, machineId: 1, cameraName: "Cam Side", ipAddress: "192.168.1.12", status: "Error", location: "Warehouse", installedDate: "2024-01-10" },
-        { id: 4, machineId: 3, cameraName: "Cam Top", ipAddress: "192.168.1.13", status: "Online", location: "Assembly", installedDate: "2024-02-05" },
-        { id: 5, machineId: 2, cameraName: "Cam Entry", ipAddress: "192.168.1.14", status: "Online", location: "Entrance", installedDate: "2024-03-20" },
+        { id: 1, machineId: 1, 
+          cameraName: "Cam Front", ipAddress: "192.168.1.10", macAddress: "FBW FWU FDU",
+          status: "Online", location: "Gate 1", 
+          installedDate: "2023-11-01", username: "Ram", password: "ram@24" },
+        { id: 2, machineId: 2, 
+          cameraName: "Cam Back", ipAddress: "192.168.1.11", macAddress: "NDG DVA RSG",
+          status: "Offline", location: "Conveyor", 
+          installedDate: "2023-12-15",username: "kumar", password: "kumar@24"  },
+        // { id: 3, machineId: 1, 
+        //   cameraName: "Cam Side", ipAddress: "192.168.1.12", 
+        //   status: "Error", location: "Warehouse", 
+        //   installedDate: "2024-01-10" },
+        // { id: 4, machineId: 3, 
+        //   cameraName: "Cam Top", ipAddress: "192.168.1.13", 
+        //   status: "Online", location: "Assembly", 
+        //   installedDate: "2024-02-05" },
+        // { id: 5, machineId: 2, 
+        //   cameraName: "Cam Entry", ipAddress: "192.168.1.14", 
+        //   status: "Online", location: "Entrance", 
+        //   installedDate: "2024-03-20" },
     ]);
   }, []);
 

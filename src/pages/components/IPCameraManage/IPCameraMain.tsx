@@ -382,7 +382,7 @@ import IconifyIcon from "components/base/IconifyIcon";
 import { useSnackbar } from 'notistack';
 
 // Import Types and Pagination
-import { IPCamera, Machine } from "pages/RegisterManagement/IPCameraRegister/IPCameraRegister";
+  import { IPCamera, Machine } from "pages/RegisterManagement/IPCameraRegister/IPCameraRegister";  
 import CustomPagination from "../VehicleManage/CustomPagination";
 
 import "../../RegisterManagement/MachineRegister/MachineRegister.css";
@@ -459,6 +459,7 @@ const IPCameraMain: React.FC<IPCameraMainProps> = ({
         c.cameraName,
         machineName,
         c.ipAddress,
+        c.macAddress,
         c.rtspUrl || "",
         c.location || "",
         c.installedDate ? dayjs(c.installedDate).format('YYYY-MM-DD') : "",
@@ -504,7 +505,7 @@ const IPCameraMain: React.FC<IPCameraMainProps> = ({
         headerName: 'Machine',
         flex: 1,
         minWidth: 150,
-        valueGetter: (params: any) => {
+        renderCell: (params: any) => {
             const row = params.row || params;
             return machines.find(m => m.id === row.machineId)?.machineName || "—";
         }
@@ -520,16 +521,38 @@ const IPCameraMain: React.FC<IPCameraMainProps> = ({
         headerName: 'MAC Address',
         flex: 0.8,
         minWidth: 140,
-        valueFormatter: (params: any) => params.value || "—"
+        // valueFormatter: (params: any) => params.value || "—"
     },
     {
         field: 'installedDate',
         headerName: 'Installed Date',
         width: 140,
-        valueFormatter: (params: any) => {
+        renderCell: (params: any) => {
             if (!params.value) return "—";
             return dayjs(params.value).format('DD MMM YYYY');
         }
+    },
+     {
+        field: 'username',
+        headerName: 'User Name',
+        flex: 1,
+        minWidth: 150,
+        renderCell: (params: GridRenderCellParams) => (
+            <Typography variant="subtitle2" fontWeight={200} color="text.primary">
+                {params.value}
+            </Typography>
+        )
+    },
+     {
+        field: 'password',
+        headerName: 'PassWord',
+        flex: 1,
+        minWidth: 150,
+        renderCell: (params: GridRenderCellParams) => (
+            <Typography variant="subtitle2" fontWeight={200} color="text.primary">
+                {params.value}
+            </Typography>
+        )
     },
     {
         field: 'status',
@@ -558,14 +581,14 @@ const IPCameraMain: React.FC<IPCameraMainProps> = ({
                 <IconButton 
                     onClick={() => onEdit(params.row)}  
                     className="vm-btn vm-action-btn-edit"
-                    size="small"
+                    // size="small"
                 >
                     <IconifyIcon icon="fluent:notepad-edit-16-regular" />
                 </IconButton>
                 <IconButton 
                     onClick={() => onDelete(params.row.id)} 
                     className="vm-btn vm-action-btn-delete"
-                    size="small"
+                    // size="small"
                 >
                     <IconifyIcon icon="wpf:delete" />
                 </IconButton>
@@ -590,6 +613,7 @@ const IPCameraMain: React.FC<IPCameraMainProps> = ({
             <Typography variant="h4" fontWeight="bold" color="text.primary">
               IP Camera Register
             </Typography>
+            <Tooltip title="Add Camera" arrow>
             <Button
               variant="contained"
               onClick={onAdd}
@@ -598,7 +622,9 @@ const IPCameraMain: React.FC<IPCameraMainProps> = ({
             >
               Add Camera
             </Button>
+            </Tooltip>
           </Stack>
+          
 
           {/* Filter Grid */}
           <Grid container spacing={2} alignItems="center">
@@ -606,6 +632,7 @@ const IPCameraMain: React.FC<IPCameraMainProps> = ({
             <Grid item xs={12} sm={6} md={3}>
               <TextField
                 variant="outlined"
+                label="Search"
                 placeholder="Search Camera or IP..."
                 size="small"
                 fullWidth
@@ -625,6 +652,7 @@ const IPCameraMain: React.FC<IPCameraMainProps> = ({
             <Grid item xs={6} sm={3} md={2}>
               <DatePicker
                 className="header-search-section"
+                label="From Date"
                 value={fromDate}
                 onChange={(newValue) => setFromDate(newValue)}
                 slotProps={{ textField: { size: 'small', fullWidth: true } }}
@@ -635,6 +663,7 @@ const IPCameraMain: React.FC<IPCameraMainProps> = ({
             <Grid item xs={6} sm={3} md={2}>
               <DatePicker
                 className="header-search-section"
+                label="To Date"
                 value={toDate}
                 onChange={(newValue) => setToDate(newValue)}
                 slotProps={{ textField: { size: 'small', fullWidth: true } }}
@@ -661,6 +690,7 @@ const IPCameraMain: React.FC<IPCameraMainProps> = ({
 
             {/* Actions */}
             <Grid item xs={12} md={3} sx={{ display: 'flex', justifyContent: { xs: 'flex-start', md: 'flex-end' }, gap: 1 }}>
+              <Tooltip title="Clear data" arrow>
               <Button
                 variant="outlined"
                 color="secondary"
@@ -670,8 +700,8 @@ const IPCameraMain: React.FC<IPCameraMainProps> = ({
               >
                 Clear
               </Button>
-
-              <Tooltip title="Download CSV">
+              </Tooltip>
+              <Tooltip title="Download CSV" arrow>
                 <IconButton
                   onClick={handleDownloadCSV}
                   sx={{
@@ -683,7 +713,7 @@ const IPCameraMain: React.FC<IPCameraMainProps> = ({
                 </IconButton>
               </Tooltip>
 
-              <Tooltip title="Refresh">
+              <Tooltip title="Refresh" arrow>
                 <IconButton
                   onClick={() => console.log("Refresh")}
                   sx={{ color: 'primary.main' }}
@@ -696,7 +726,7 @@ const IPCameraMain: React.FC<IPCameraMainProps> = ({
         </Box>
 
         {/* --- DATA GRID SECTION --- */}
-        <Box sx={{ height: 650, width: '100%' }}>
+        <Box sx={{ height: 550, width: '100%' }}>
             <DataGrid
                 rows={filteredCameras}
                 columns={columns}
